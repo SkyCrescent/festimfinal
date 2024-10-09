@@ -11,9 +11,9 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
    const [isSubmit,SetIsSubmit] = useState(false)
    const [selectedFile, setSelectedFile] = useState(null);
    const [finish, setFinish] = useState(false);
-
+   const [imposeMail ,setimposeMail] = useState(false);
    const [selectedImage1 , SetselectedImage1] = useState(false)
-
+   const [loading , SetLoading] = useState(false )
    const [values, setValues] = useState({
       nom: "",
       prenom:"",
@@ -22,7 +22,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
       ville:"",
       email:"",
       media:"",
-      id:NumReservation,
+      nomEvents:NumReservation,
       pays:"",
       genre:"",
       proffession : "",
@@ -313,9 +313,9 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
          setValues({ ...values, [name]: cleanedValue });
       }else if (name === 'email'  ) {
          // Supprimer les caractères spéciaux pour l'adresse
-         cleanedAddress = value.replace(/[^\w\s]/gi, '');
-         //cleanedAddress = cleanedAddress.replace(/\b\w/g, char => char.toUpperCase());
-         // Mettre à jour l'état avec l'adresse nettoyée
+        // cleanedAddress = value.replace(/[^\w\s]/gi, '');
+         cleanedAddress = value.replace(/[^\w@.\-]/g, '');
+         // Mettre à jour l'état avec l'email nettoyé
          setValues({ ...values, [name]: cleanedAddress });
       } else {
          // Pour les autres champs, mettre à jour simplement la valeur sans formatage
@@ -345,7 +345,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
             formData.append('ville', values.ville);
             formData.append('email', values.email);
             formData.append('photo', values.media);
-            formData.append('id_evenement', values.id);
+            formData.append('id_evenement', values.nomEvents);
             formData.append('pays', values.pays);
             formData.append('genre', values.genre);
             formData.append('profession', values.proffession);
@@ -370,7 +370,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                ville:"",
                email:"",
                media:"",
-               id:"",
+               nomEvents:"",
                pays:"",
                genre:"",
                proffession : "",
@@ -398,7 +398,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
             formData.append('ville', values.ville);
             formData.append('email', values.email);
             formData.append('photo', values.media);
-            formData.append('id_evenement', values.id);
+            formData.append('id_evenement', values.nomEvents);
 
 
             formData.append('pays', values.pays);
@@ -423,7 +423,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                ville:"",
                email:"",
                media:"",
-               id:"",
+               nomEvents:"",
                pays:"",
                genre:"",
                proffession : "",
@@ -443,33 +443,24 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
       SetIsSubmit(true);
 
       const valuesNotEmpty = Object.values(values).every(value => value !== "");
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/ ;
+      //verification de la presence de @ et dun nom de domainde valide
+       //   if (values.email &&  !values.email.includes("@")) {
+        if (values.email && ! emailRegex.test(values.email)){
+               setimposeMail(true)
+               console.log("Veuillez .");
+            } else if (valuesNotEmpty) {
+           setimposeMail(false)
+               addData();
 
-      if (valuesNotEmpty) {
-         addData();
-
-      } else {
-         console.log("Veuillez remplir tous les champs avant de soumettre le formulaire.");
-         // Ajoutez ici la logique pour afficher un message d'erreur ou une notification à l'utilisateur.
-      }
+            } else {
+           setimposeMail(false)
+               console.log("Veuillez remplir tous les champs avant de soumettre le formulaire.");
+               // Ajoutez ici la logique pour afficher un message d'erreur ou une notification à l'utilisateur.
+            }
    };
 
 
-   const handleSummit2 = () => {
-      SetIsSubmit(true);
-
-      const valuesNotEmpty = Object.values(values).every(value => value !== "");
-
-      if (valuesNotEmpty) {
-         addData2();
-         router.push(`/presentation/festim`)
-
-      } else {
-         console.log("Veuillez remplir tous les champs avant de soumettre le formulaire.");
-         // Ajoutez ici la logique pour afficher un message d'erreur ou une notification à l'utilisateur.
-      }
-   };
-
-   const [loading , SetLoading] = useState(false )
    setTimeout(()=>{
       // SetAlldisplay(false)
       SetLoading (true)
@@ -526,7 +517,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                      </div>
 
 
-                     <div className="relative w-[100%] h-[20%] md:h-[30%] text-sm items-center -left-4 -top-24 flex md:justify-evenly ">
+                     <div className="relative w-[100%] h-[20%] md:h-[30%] flex-col  text-sm items-center -left-4 -top-24 flex md:justify-evenly ">
                         <button
                            className="relative  md:w-[90%] lg:w-[80%] h-[80%] md:h-[60%] lg:h-[30%] bg-sky-700 hover:bg-green-800 text-white text-center transition duration-300 transform hover:scale-105 px-4 py-2 rounded-md font-normal"
                            onClick={handleSummit}>
@@ -534,6 +525,10 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                         </button>
 
 
+
+                        {
+                           imposeMail ? (<span className='text-red-600'>Ce mail n'est pas conforme</span>) : null
+                        }
 
                      </div>
 

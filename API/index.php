@@ -7,17 +7,23 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 // Votre code pour récupérer et envoyer les données JSON
 
-$dbname ="u834371112_festim2";
+// $dbname ="u834371112_festim2";
+// $host="localhost";
+// $username ="u834371112_crescentnounga";
+// $password="SkyCrescent1234";
+// $con = mysqli_connect($host,$username,$password,$dbname);
+$dbname ="festim";
 $host="localhost";
-$username ="u834371112_crescentnounga";
-$password="SkyCrescent1234";
+$username ="root";
+$password="";
 $con = mysqli_connect($host,$username,$password,$dbname);
+
 
         if (!$con){
             echo "Message : Impossible de se connecter";
            //  die();
         }else{
-            //   echo "Connection effectue avec succes ";
+             echo "Connection effectue avec succes ";
 //            header('Content-Type: application/json');
 //            header("Access-Control-Allow-Origin: http://localhost:3000"); // Autorise l'origine spécifique
 //            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");

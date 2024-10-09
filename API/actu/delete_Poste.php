@@ -15,7 +15,7 @@ $answer = array();
 
 if (isset($_GET['id']) ){
     $id = $_GET['id'];
-    $query = $con->prepare("DELETE from publication WHERE id =? LIMIT 1 ");
+    $query = $con->prepare("DELETE from actualite WHERE id =? LIMIT 1 ");
  $query -> bind_param("i",$id);
     if ($query->execute()){
         $answer['error'] =false ;

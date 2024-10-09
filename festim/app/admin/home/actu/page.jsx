@@ -306,7 +306,17 @@ export default function page(){
                               <h2>en ete vous sure </h2>
                            </div>
                            <button className={`bg-red-500 text-white rounded w-64 h-10 hover:bg-red-400`} onClick={()=>{deletData(MyId)}}>Supprimer</button>
-                           <button className={`bg-blue-500 text-white rounded w-64 h-10 hover:bg-blue-400`} onClick={()=>{SetDelete(false)}} >Annuler</button>
+
+                           {/*<button className={`bg-red-500 text-white rounded w-64 h-10 hover:bg-red-400`}*/}
+                           {/*        onClick={console.log(MyId)*/}
+                           {/*        }>Supprimer*/}
+                           {/*</button>*/}
+
+                           <button className={`bg-blue-500 text-white rounded w-64 h-10 hover:bg-blue-400`}
+                                   onClick={() => {
+                                      SetDelete(false)
+                                   }}>Annuler
+                           </button>
                         </div>
                      </div>
                   </div>

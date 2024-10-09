@@ -210,11 +210,11 @@ console.log(data)
    }
 
 
-   const GotoAdd = async (id) =>{
+   const GotoAdd = async (nom) =>{
       // const encryptedData3 = btoa(id);
       // router.push(`/presentation/concerned?bal=${encodeURIComponent(encryptedData3)}`);
 
-SetnumReservation(id)
+SetnumReservation(nom)
       SetReservation(true)
    }
 
@@ -1287,7 +1287,7 @@ SetnumReservation(id)
                                  <button
                                     className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
                                     onClick={() => {
-                                       GotoAdd(item.id)
+                                       GotoAdd(item.nom)
                                     }}
                                  >Me
                                     Reserver une place
@@ -1305,7 +1305,7 @@ SetnumReservation(id)
                                  <button
                                     className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
                                     onClick={() => {
-                                       GotoAdd(item.id)
+                                       GotoAdd(item.nom)
                                     }}
                                  >Me
                                     Reserver une place
@@ -1323,7 +1323,7 @@ SetnumReservation(id)
                                  <button
                                     className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
                                     onClick={() => {
-                                       GotoAdd(item.id)
+                                       GotoAdd(item.nom)
                                     }}
                                  >Me
                                     Reserver une place
@@ -1340,7 +1340,7 @@ SetnumReservation(id)
                                  <button
                                     className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
                                     onClick={() => {
-                                       GotoAdd(item.id)
+                                       GotoAdd(item.nom)
                                     }}
                                  >Me
                                     Reserver une place

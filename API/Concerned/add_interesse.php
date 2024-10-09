@@ -3,8 +3,17 @@ header('Content-Type: application/json');
 require_once '../connection.php';
 $answer = array();
 
+//$_POST['photo'], $_POST['nom'], $_POST['adresse'], $_POST['contact'] ,$_POST['prenom'], $_POST['ville'], $_POST['email'], $_POST['nomEvents']
+// print_r("le nom: " . $_POST['photo']);
+//
+// print_r("le nom: " . $_POST['nom']);
+// print_r("le nom: " . $_POST['adresse']);
+// print_r("le nom: " . $_POST['contact']);
+// print_r("le nom: " . $_POST['prenom']);
+// print_r("le nom: " . $_POST['ville']);
+// print_r("le nom: " . $_POST['email']);
+// print_r("le nom: " . $_POST['id_evenement']);
 
-//print_r("le nom: " . $_POST['contact']);
 //die();
 //print_r("adresse".$_POST ['adresse']);
 //print_r("la photo".$_POST ['photo']);
@@ -12,19 +21,6 @@ $answer = array();
 //
 //print_r($_FILES['media']);
 
-
-
-//var_dump($_POST['nom']);
-//die();
-//var_dump($_POST); // Vérifiez si les données POST sont correctement reçues
-//die();
-//
-//formData.append('pays', values.pays);
-//formData.append('genre', values.genre);
-//formData.append('profession', values.proffession);
-//formData.append('fonction', values.fonction);
-
-////
 
 if (isset($_POST['photo'], $_POST['nom'], $_POST['adresse'], $_POST['contact'] ,$_POST['prenom'], $_POST['ville'], $_POST['email'], $_POST['id_evenement'])) {
 $photo = ($_POST['photo']);
@@ -48,7 +44,7 @@ $id= $_POST['id_evenement'];
 
 
 $query = $con->prepare("INSERT INTO interesse (photo, nom, adresse, contact,prenom,ville,email,id_evenement,pays,genre,profession,fonction) VALUES (?,?,?,?,?, ?, ?, ?,?,?,?,?)");
-$query->bind_param("sssssssissss", $photo, $nom, $adresse, $contact,$prenom,$ville,$email,$id,$pays,$genre,$profession,$fonction);
+$query->bind_param("ssssssssssss", $photo, $nom, $adresse, $contact,$prenom,$ville,$email,$id,$pays,$genre,$profession,$fonction);
 if ($query->execute()) {
     $answer['error'] = false;
     $answer['message'] = "Insertion effectuée avec succès.";

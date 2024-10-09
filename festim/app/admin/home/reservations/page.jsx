@@ -200,17 +200,26 @@ export default function page(){
                         onFocus={() => SetFocus6(true)}
                         onBlur={() => SetFocus6(false)}
                         name="service"
-                        className={"text-large relative w-[100%] text-gray-700 border rounded-lg bg-white/90 border-gray-300 py-2 px-4 h-12 focus:outline-none focus:border-blue-500"}
-                        onChange={(e) =>  setValues(prevValues => ({
-                           ...prevValues,
-                           service:(e.target.value)
-                        }))}
+                        className={"text-large relative w-[100%] text-gray-700 border rounded-lg bg-white/90 border-gray-300 mx-3 py-2 px-4 h-12 focus:outline-none focus:border-blue-500"}
+                        // onChange={(e) =>  setValues(prevValues => ({
+                        //    ...prevValues,
+                        //    service:(e.target.value);
+                        // }))}
+
+                         onChange={(e) =>{
+                            setValues(prevValues =>({
+                                   ...prevValues,
+                                   service : (e.target.value)
+                                }))
+                            console.log(e.target.value)
+                         }}
+
                          value={values.service}
                      >
                         <br></br>
                         <option value=""></option>
                         {filteredData.map((option) => (
-                           <option key={option.id} value={option.id}>
+                           <option key={option.id} value={option.nom}>
                               {option.nom}
                            </option>
                         ))}
@@ -225,7 +234,7 @@ export default function page(){
             </div>
 
             <br></br>
-            <div className="hidden md:block overflow-y-auto scrollbar-hidden relative h-[100%]  w-[100%]   ">
+            <div className="hidden md:block  overflow-y-auto scrollbar-hidden relative h-[100%]  w-[98%] mx-auto   ">
                <div className="relative top-2 h-auto content-container overflow-hidden ">
                   <div className="w-full shadow-lg h-auto ">
                      <div className="grid grid-cols-12 text-xs p-2 md:p-4  bg-blue-500 md:uppercase">
@@ -242,15 +251,17 @@ export default function page(){
                      {
                         loading
                            ? (
-                              filteredData2 .map((subItem, subIndex) => (
+                              filteredData2.filter((item)=>{
+                                 return values.service === '' || item.id_evenement.includes(values.service);
+                              }) .map((subItem, subIndex) => (
                                  <div
                                     className={subIndex % 2 === 0 ? 'bg-transparent border-b border-blue-400  cursor-pointer font-medium text-black hover:bg-gray-100 ' : 'bg-transparent text-black border-b border-blue-400 font-medium cursor-pointer hover:bg-gray-100'}>
                                     <li key={subIndex}
-                                        className={`border-b border-blue-400 py-3 px-2 md:px-3  grid grid-cols-12 
+                                        className={`border-b border-blue-400 py-2 px-2 md:px-1  grid grid-cols-12 
                                   ${subIndex % 2 === 0 ? "bg-transparent" : "bg-transparent"} text-black  md:font-[Poppins] cursor-pointer items-center hover:bg-gray-200 `
                                         }
-                                       // onMouseEnter={() => SetOptions(subIndex)}
-                                       // onMouseLeave={() => SetOptions(null)}
+                                        // onMouseEnter={() => SetOptions(subIndex)}
+                                        // onMouseLeave={() => SetOptions(null)}
                                     >
                                        <a className="relative w-40 h-16 md:h-18 "> <img src={`/${subItem.photo}`}
                                                                                         alt={`Media ${subItem.id}`}
@@ -262,6 +273,8 @@ export default function page(){
                                        <a className="col-span-2 md:-mx-8h-8">{subItem.contact}</a>
                                        <a className="col-span-2 md:-mx-6 h-8">{subItem.ville}</a>
                                        <a className="col-span-2 md:-mx-8 h-8">{subItem.email}</a>
+                                       {/*<a className="col-span-2 md:-mx-8 h-8">{subItem.id_evenement}</a>*/}
+
                                     </li>
 
                                     {/* Ajoutez d'autres informations ici si nécessaire */}
