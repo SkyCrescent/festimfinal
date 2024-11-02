@@ -516,19 +516,19 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
             className={`fixed top-0 left-0 z-30 bg-black/70 w-screen h-screen overflow-y-auto transition duration-300 ease-in-out`}
 
          >
-            <div className="w-full h-[83%]  flex justify-center my-12 md:my-96 lg:my-10">
+            <div className="w-full h-full md:h-[83%]  flex justify-center my-12 md:my-96 lg:my-10">
                <div
-                  className={` relative  flex justify-evenly h-[100%] md:h-[100%] w-[98%] md:w-[80%] bg-white border border-black/70  shadow   ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
+                   className={` relative  flex justify-evenly hidden md:block h-[100%] md:h-[100%] w-[98%] md:w-[80%] bg-white border border-black/70  shadow   ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
 
                   <div
-                     className=" absolute -right-2 top-2 h-[4%] md:h-[11%] w-[8%] md:w-[6%] items-center justify-center ">
+                      className=" absolute -right-2 top-2 h-[4%] md:h-[11%] w-[8%] md:w-[6%] items-center justify-center ">
                      <img
-                        src={close.src}
-                        alt="Image sélectionnée"
-                        className="relative h-[60%] cursor-pointer mx-auto w-[60%] z-40"
-                        onClick={() => {
-                           SetReservation(false)
-                        }}
+                         src={close.src}
+                         alt="Image sélectionnée"
+                         className="relative h-[60%] cursor-pointer mx-auto w-[60%] z-40"
+                         onClick={() => {
+                            SetReservation(false)
+                         }}
                      />
                   </div>
 
@@ -537,17 +537,17 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                       className="flex  m-1  justify-between  md:top-0   rounded-md   mx-auto w-[100%] md:w-[100%] h-[99%]    ">
 
 
-                        <img
-                            src={logo.src}
-                            alt={`Logo `}
-                            width="190"
-                            height="190"
-                            className="  relative  h-[100%] w-[3%] rounded "
-                        />
+                     <img
+                         src={logo.src}
+                         alt={`Logo `}
+                         width="190"
+                         height="190"
+                         className="  relative  h-[100%] w-[3%] hidden md:block rounded "
+                     />
 
                      {/*Partie ecrit et bouton*/}
                      <div
-                         className="relative h-[100%] w-[30%] hidden md:block  z-20  font-bold text-2xl  flex  uppercase">
+                         className=" flex flex-col relative h-[100%] w-[30%] hidden md:block  z-20  font-bold text-2xl  uppercase">
                         <div
                             className="   relative items-center justify-center h-[70%] w-[100%]  flex-col md:flex-row top-16 -left-4 cursor-default  ">
                            <div
@@ -572,18 +572,15 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
 
                         <div
                             className="relative w-[100%] h-[20%] md:h-[30%] flex-col  text-sm items-center -left-4 -top-24 flex md:justify-evenly ">
-                        <button
+                           <button
                                className="relative  md:w-[90%] lg:w-[80%] h-[80%] md:h-[60%] lg:h-[30%] bg-sky-700 hover:bg-green-800 text-white text-center transition duration-300 transform hover:scale-105 px-4 py-2 rounded-md font-normal"
                                onClick={handleSummit}>
                               Confirmer ma reservation
                            </button>
 
 
-
-
-
                            {
-                              imposeMail ? (<span className='text-red-600'>Ce mail n'est pas conforme</span>)  : null
+                              imposeMail ? (<span className='text-red-600'>Ce mail n'est pas conforme</span>) : null
                            }
 
                         </div>
@@ -607,7 +604,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                                      htmlFor="imageInput"
                                      className={isSubmit && !selectedImage1 ?
                                          "relative w-[100%] md:w-[30%] lg:w-[80%] h-[98%] md:h-[70%] lg:h-[108%] mx-auto md:mt-8 lg:mt-3 top bg-transparent border border-red-500 hover:border-red-500 rounded-full flex items-center justify-center cursor-pointer group"
-                                 :
+                                         :
                                          "relative w-[100%] md:w-[30%] lg:w-[80%] h-[98%] md:h-[70%] lg:h-[108%] mx-auto md:mt-8 lg:mt-3 top bg-transparent border border-black/40 hover:border-green-600 rounded-full flex items-center justify-center cursor-pointer group"}
 
                                  >
@@ -663,7 +660,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                                                     onBlur={() => SetFocus(false)}
                                                     className={isSubmit && item.error ?
                                                         "text-[9px] md:text-[15px] relative h-[75%] w-[90%]  text-black border  border-red-500 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-sky-500 focus:border-sky-500"
-                                                       : item.className}
+                                                        : item.className}
                                                     name={item.name}
                                                     onChange={handleChange /* Remplacez cela par votre logique */}
                                                     value={values.genre || ""}
@@ -698,7 +695,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                                                        onBlur={() => SetFocus(false)}
                                                        className={isSubmit && item.error ?
                                                            "text-[9px] md:text-[15px] relative h-[75%] w-[90%]  text-black border  border-red-500 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-sky-500 focus:border-sky-500"
-                                                          : item.className}
+                                                           : item.className}
                                                        type={item.type}
                                                        onChange={(e) => handleChange(e)}
                                                        value={item.value}
@@ -720,15 +717,6 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                         </div>
 
 
-
-
-
-
-
-
-
-
-
                         <div
                             className="relative -top-40 md:top-3 w-[56%]  h-[35%] md:w-[55%]   md:h-[100%] flex-row items-center justify-center -space-y-4 md:-space-y-12 ">
 
@@ -736,7 +724,8 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                            {input1.map((item) => (
                                <div key={item.id} className="items-center relative h-[50%] lg:h-[23%] w-[100%]  ">
                                   {
-                                     <div className="rounded-md  mx-auto relative h-[90%] md:h-[90%] w-[100%]" key={item.id}>
+                                     <div className="rounded-md  mx-auto relative h-[90%] md:h-[90%] w-[100%]"
+                                          key={item.id}>
 
                                         <div className=" relative h-[60%] md:h-[60%] w-[100%]   ">
                                            <input
@@ -744,9 +733,9 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                                                name={item.name}
                                                onFocus={() => SetFocus(true)}
                                                onBlur={() => SetFocus(false)}
-                                               className={isSubmit && item.error ?    "text-[9px] md:text-[15px] relative h-[75%] w-[90%]  text-black border  border-red-500 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-sky-500 focus:border-sky-500"
+                                               className={isSubmit && item.error ? "text-[9px] md:text-[15px] relative h-[75%] w-[90%]  text-black border  border-red-500 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-sky-500 focus:border-sky-500"
 
-                                                  : item.className}
+                                                   : item.className}
                                                type={item.type}
                                                onChange={(e) => handleChange(e)}
                                                value={item.value}
@@ -792,6 +781,167 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
 
 
                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <div className="w-full h-full block md:hidden flex justify-center items-center p-4">
+                  <div
+                      className="relative flex flex-col lg:flex-row justify-center w-full max-w-4xl bg-white border border-black/70 shadow-lg transition duration-500 ease-in-out">
+
+                     {/* Bouton de Fermeture */}
+                     <div className="absolute z-10 top-64 right-4">
+                        <img
+                            src={close.src}
+                            alt="Fermer"
+                            className="h-12 w-12 cursor-pointer"
+                            onClick={() => SetReservation(false)}
+                        />
+                     </div>
+
+                     {/* Logo et Texte d'introduction */}
+                     <div
+                         className="flex flex-col items-center lg:items-start text-center lg:text-left p-4 space-y-4 lg:space-y-8 w-full lg:w-1/3">
+                        <img src={logo.src} alt="Logo" className="h-24 w-24 rounded-full"/>
+
+                        <div className="space-y-2 ">
+                           {/*<h2 className="text-2xl font-bold text-blue-500">Formulaire</h2>*/}
+                           {/*<h3 className="text-xl font-semibold text-green-500">de</h3>*/}
+                           <h4 className="text-lg mt-36 font-medium text-green-700">Réservation</h4>
+                        </div>
+
+                        <p className="text-sm text-black">Veuillez remplir toutes les informations pour réserver votre
+                           place à cet événement.</p>
+
+                        <button
+                            className="bg-sky-700 hover:bg-green-800 text-white py-2 px-4 rounded-md transform transition duration-300 hover:scale-105"
+                            onClick={handleSummit}
+                        >
+                           Confirmer ma réservation
+                        </button>
+
+                        {imposeMail && <span className='text-red-600'>Ce mail n'est pas conforme</span>}
+                     </div>
+
+                     {/* Formulaire */}
+                     <div className="flex flex-col sm:flex-row items-center p-4 w-full lg:w-2/3">
+                        {/* Colonne 1 */}
+                        <div className="flex flex-col sm:w-1/2 space-y-6">
+                           {/* Image Upload */}
+                           <div
+                               className="relative w-full h-32 sm:h-48 flex items-center justify-center border rounded-md">
+                              <label htmlFor="imageInput"
+                                     className={`${isSubmit && !selectedImage1 ? 'border-red-500' : 'border-gray-400'} cursor-pointer w-full h-full flex items-center justify-center`}>
+                                 <input
+                                     type="file"
+                                     id="imageInput"
+                                     name="file"
+                                     accept=".jpg, .jpeg, .png"
+                                     className="sr-only"
+                                     onChange={handleFileChange}
+                                 />
+                                 {!selectedFile ? (
+                                     <div className="text-gray-600 text-center">
+                                        <img src={picture.src} alt="Upload" className="w-8 h-8 mx-auto"/>
+                                        <span>Importer votre photo</span>
+                                     </div>
+                                 ) : (
+                                     <img src={URL.createObjectURL(selectedFile)} alt="Image sélectionnée"
+                                          className="h-full w-full object-cover rounded-full"/>
+                                 )}
+                              </label>
+                           </div>
+
+                           {/* Champs de Texte */}
+                           {input3.map((item) => (
+                               <div key={item.id}
+                                    className="w-full relative"> {/* Added 'relative' to the container for absolute positioning */}
+                                  {item.type === 'select' ? (
+                                      <>
+                                         <select
+                                             className={`${isSubmit && item.error ? 'border-red-500' : 'border-gray-300'} w-full px-4 py-2 border rounded-md focus:outline-none`}
+                                             onChange={handleChange}
+                                             value={values[item.name] || ""}
+                                         >
+                                            {item.options.map((option) => (
+                                                <option key={option.value} value={option.value}>
+                                                   {option.text}
+                                                </option>
+                                            ))}
+                                         </select>
+                                         <label
+                                             className={
+                                                (Focus || values.nom || values.prenom || values.phone || values.adresse || values.ville || values.email || values.media || values.pays || values.genre || values.proffession || values.fonction)
+                                                    ? "absolute left-1 top-7 text-[9px] md:text-[13px] font-extralight h-[30%] w-[90%] text-green-800 -translate-y-12 duration-300"
+                                                    : "absolute tracking-wide pointer-events-none duration-300 left-0 top-3 px-6 text-[9px] md:text-[14px] h-[30%] w-[100%] text-black"
+                                             }
+                                         >
+                                            {item.label}
+                                         </label>
+                                      </>
+                                  ) : (
+                                      <>
+                                         <input
+                                             type={item.type}
+                                             name={item.name}
+                                             className={`${isSubmit && item.error ? 'border-red-500' : 'border-gray-300'} w-full px-4 py-2 border rounded-md focus:outline-none`}
+                                             onChange={handleChange}
+                                             value={values[item.name] || ""}
+                                         />
+                                         <label
+                                             className={
+                                                (Focus || values.nom || values.prenom || values.phone || values.adresse || values.ville || values.email || values.media || values.pays || values.genre || values.proffession || values.fonction)
+                                                    ? "absolute left-1 top-7 text-[9px] md:text-[13px] font-extralight h-[30%] w-[90%] text-green-800 -translate-y-12 duration-300"
+                                                    : "absolute tracking-wide pointer-events-none duration-300 left-0 top-3 px-6 text-[9px] md:text-[14px] h-[30%] w-[100%] text-black"
+                                             }
+                                         >
+                                            {item.label}
+                                         </label>
+                                      </>
+                                  )}
+                               </div>
+                           ))}
+
+                        </div>
+
+                        {/* Colonne 2 */}
+                        <div className="flex flex-col sm:w-1/2 space-y-6  mt-6 sm:mt-0">
+                           {input1.map((item) => (
+                               <div key={item.id} className="w-full relative"> {/* Add 'relative' for the container */}
+                                  <input
+                                      type={item.type}
+                                      name={item.name}
+                                      className={`${isSubmit && item.error ? 'border-red-500' : 'border-gray-300'} w-full px-4 py-2 border rounded-md focus:outline-none`}
+                                      onChange={handleChange}
+                                      value={values[item.name] || ""}
+                                  />
+                                  <label
+                                      className={
+                                         (Focus || values.nom || values.prenom || values.phone || values.adresse || values.ville || values.email || values.media || values.pays || values.genre || values.proffession || values.fonction)  // Check the current input's value for the label
+                                             ? "absolute left-1 top-1 text-[9px] md:text-[13px] font-extralight h-[30%] w-[90%] text-green-800 -translate-y-3 duration-300"
+                                             : "absolute tracking-wide pointer-events-none duration-300 left-2 top-3 px-6 text-[9px] md:text-[14px] h-[30%] w-[100%] text-black"
+                                      }
+                                  >
+                                     {item.label}
+                                  </label>
+                               </div>
+                           ))}
+
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+
 
             </div>
 
