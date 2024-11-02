@@ -377,38 +377,35 @@ export default function page() {
                      <ul className="relative h-[20%] w-[80%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>PERSPECTIVES SUR L’EMPLOI
-                           DES JEUNES EN AFRIQUE ;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Perspectives sur l'emploi des jeunes en Afrique ;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[98%] lg:w-[65%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>L’ENTREPRENEURIAT COMME
-                           PISTE DE SOLUTION POUR RELEVER LES DÉFIS DE
-                           L’EMPLOI DES JEUNES EN AFRIQUE ;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>L’entrepreneuriat comme
+                           piste de solution pour reveler les défis de L’emploi des jeunes en Afrique ;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[90%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>LES PME PORTEUSES
-                           D’ESPOIR POUR TIRER LES JEUNES VERS L’ENTREPRENEURIAT;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>LES PME porteuses
+                           d'espoir pour tirer les jeunes vers l'entrepreneuriat;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>QUEL RÔLE POUR L’ÉTAT ET
-                           LES BANQUES MULTILATÉRALES DE DÉVELOPPEMENT;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Quel role pour l'état et
+                           les banques multilatérales de développement;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[90%] lg:w-[65%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>AUTONOMISER LE SECTEUR
-                           PRIVÉ POUR UN MEILLEUR DIALOGUE POLITIQUE
-                           AVEC LE SECTEUR PUBLIC.
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Automatiser le secteur privé
+                           pour un meilleur dialogue politique avec le secteur public.
                         </li>
                      </ul>
                   </div>
@@ -430,15 +427,15 @@ export default function page() {
                      <ul className="relative h-[20%] w-[80%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>LES CONTRAINTES LIÉES AU
-                           DÉVELOPPEMENT DES PME ;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les contraintes liées au
+                           développement des PME ;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>QUELLES PISTES POUR LEVER
-                           LES CONTRAINTES DES PME.
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Quelles pistes pour lever
+                           les contraintes des PME.
                         </li>
                      </ul>
 
@@ -461,45 +458,44 @@ export default function page() {
                      <ul className="relative h-[20%] w-[80%] md:w-[90%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>PERSPECTIVES SUR L’EMPLOI
-                           DES JEUNES EN AFRIQUE ;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Perspectives sur l'emploi
+                           des jeunes en Afrique ;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[98%]  lg::w-[90%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>TIRER PARTI DES NOUVELLES
-                           TECHNOLOGIES, DU NUMÉRIQUE ET DES OUTILS D’INTELLIGENCE ARTIFICIELLE POUR DÉVELOPPER LES
-                           COMPÉTENCES
-                           ET LE SAVOIR-FAIRE ENTREPRENEURIAL ;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Tirer parti des nouvelles
+                           technologies, du numériques et des outils d’intelligence artificielle pour développer les
+                           compétences et le savoir-faire entrepreneurial;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[90%]  lg:w-[80%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>EXPLOITER LES
-                           OPPORTUNITÉS OFFERTES PAR L’ÉCONOMIE ORANGE ET TRADITIONNELLE;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Exploiter les opportunités offertes
+                           par l'économie orange et traditionnelle;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>INVESTIR DANS L’INDUSTRIE
-                           DES STARTUPS AFRICAINES ;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Investir dans l'industrie des startups
+                           africaines ;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>FACILITER L’ACCÈS AU
-                           FINANCEMENT;
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Faciliter l'accès au
+                           fiancement ;
                         </li>
                      </ul>
                      <ul className="relative h-[20%] w-[90%] md:w-[90%] lg:w-[80%] mx-8   list-disc list-inside  ">
                         <li
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>CATALYSER LES RESSOURCES
-                           DE LA DIASPORA AFRICAINE : ÉPARGNE, RÉSEAUX ET TALENTS.
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Catalyser les ressources
+                           de la DIASPORA Africaine : épargne, réseaux et talents.
                         </li>
                      </ul>
                   </div>

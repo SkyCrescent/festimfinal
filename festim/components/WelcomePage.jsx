@@ -234,8 +234,7 @@ export default function WelcomePage(){
                               className="font-bold text-[14px] ">Promouvoir
                            les Métiers de la Diplomatie et l'Entrepreneuriat des
                            Jeunes en Afrique.</span> <br></br>
-                           <br></br> <span className="font-black"> Forme juridique :</span> Organisation Non
-                           Gouvernementale <span className="font-bold">(O.N.G)</span> à caractère économique et
+                           <br></br> <span className="font-black"> Forme juridique :</span> Association à caractère économique et
                            socio-culturel, d'utulité publique nationale et internationale, crée et enregistrée en
                            République du Congo sous le numéro <span
                            className="font-black">N°0398/22/MIDDL/DBZ/SG/DDAT/SR</span>. <br></br> <span
@@ -247,9 +246,9 @@ export default function WelcomePage(){
                            <br></br>
                            Adresse de proximité Centre ville : Hôtel Olympic Palace Brazzaville.
                            <br></br>
-                           E-mail : festimafrique@gmail.com
+                           <strong>E-mail</strong> : festimafrique@gmail.com
                            <br></br>
-                           Téléphones : +242 06 440 08 81
+                          <strong>Téléphones</strong> : +242 06 440 08 81
 
                            {/*//Forme juridique : Organisation Non Gouvernementale (O.N.G) à caractère économique et socio-culturel,*/}
 
@@ -293,20 +292,20 @@ export default function WelcomePage(){
                <div className="flex justify-between ">
 
                   <div className="relative w-[90%] md:w-[90%]  lg:w-[50%] mx-6 top-2.5 ">
-                     <div className=" md:grid grid-cols-2 text-center ">
+                     <div className="grid   md:grid grid-cols-2 text-center ">
 
                         <div className="col-span-1">
 
-                           <div className="border border-black p-4">Inscription anticipée</div>
-                           <div className="border border-black p-4">Date limite de soumission des articles</div>
-                           <div className="border border-black p-4">Date limite d'inscription</div>
-                           <div className="border border-black p-4">Date de la conférence</div>
+                           <div className="border border-black p-2 md:p-4">Inscription anticipée</div>
+                           <div className="border border-black p-1 md:p-4">Date limite de soumission des articles</div>
+                           <div className="border border-black p-1 md:p-4">Date limite d'inscription</div>
+                           <div className="border border-black p-1 md:p-4">Date de la conférence</div>
                         </div>
 
                         <div className="col-span-1">
-                           <div className="border border-black p-4">30 avril 2024</div>
+                           <div className="border border-black p-2 md:p-4">30 avril 2024</div>
 
-                           <div className="border border-black p-4">10 mai 2024</div>
+                           <div className="border border-black p-7 md:p-4">10 mai 2024</div>
                            <div className="border border-black p-4">20 mai 2024</div>
                            <div className="border border-black p-4">30 - 31 mai 2024</div>
                         </div>
@@ -332,7 +331,7 @@ export default function WelcomePage(){
 
 
             {/* Règles et Règlements */}
-            <div className="relative  h-auto md:top-6 lg:top-0 ">
+            <div className="relative  h-auto top-6 md:top-6 lg:top-0 ">
                <div
                   className="bg-red-900 bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4  w-[80%] md:w-[50%] lg:w-[55%] rounded-tr-full justify-center  ">
 
@@ -344,7 +343,7 @@ export default function WelcomePage(){
 
                <div className="flex flex-wrap ">
                    <div className="relative w-full md:w-[98%]  lg:w-[60%]  ">
-                  <span className="relative w-[80%] md:w-[80%] lg:w-[55%] mx-6 text-sm ">Soumission d’articles et publication dans les conférences internationales de la Research Foundation :</span>
+                  <span className="relative w-[50%] md:w-[80%] lg:w-[55%]  mx-6 text-sm ">Soumission d’articles et publication dans les conférences internationales de l'association <strong>FESTIM Afrique</strong> :</span>
 
                   <ul className="relative h-auto w-[80%] md:w-[90%]  lg:w-[80%] lg:w-[93%] mx-8    list-disc list-inside  ">
                      <li
@@ -475,7 +474,7 @@ export default function WelcomePage(){
                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                            <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>
                            Soumettez le résumé et l'article complet en ligne ou par courrier électronique à
-                           info@researchfoundation.net .
+                           festimafrique@gmail.com .
                            Vous recevrez un accusé de réception dans un délai de deux jours ouvrés
                         </li>
                      </ul>
@@ -895,11 +894,10 @@ export default function WelcomePage(){
                            <li
                               className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                               <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>
-                              Cependant, si Research Foundation détermine que le plagiat ou une fausse identité constitue
+                              Cependant, si Festim Afrique détermine que le plagiat ou une fausse identité constitue
                               un
                               problème majeur dans l'article publié et viole les droits d'auteur d'autrui, l'article sera
-                              définitivement retiré de la publication et l'auteur sera pénalisé et banni de Research
-                              Foundation
+                              définitivement retiré de la publication et l'auteur sera pénalisé et banni de Festim Afrique
                               et des autres organisateurs de conférences pour vie.
                               La suppression sera notifiée sur le site Internet de la revue et les services d'indexation en
                               seront informés.

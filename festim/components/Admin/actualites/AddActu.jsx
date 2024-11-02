@@ -4,7 +4,8 @@ import React from "react";
 import axios from 'axios';
 import Image from "next/image";
 import picture from "../../../public/picture.png";
-//import f from '../../pages/api/publication'
+import logo from "@/public/113.png";
+
 export default function AddActu({modal,SetModal,handleClickButton8}) {
    const apiUrl = process.env.NEXT_PUBLIC_API_URL ;
    const [filteredData, setFilteredData] = useState([]); // Initialize with all dat
@@ -12,6 +13,7 @@ export default function AddActu({modal,SetModal,handleClickButton8}) {
    const [Errors,SetErrors] = useState({})
    const [isSubmit,SetIsSubmit] = useState(false)
    const [selectedFile2, setSelectedFile2] = useState(null);
+   const [loading , SetLoading] = useState(false )
    const [selectedFile, setSelectedFile] = useState(null);
    const [values, setValues] = useState({
       poste: "",
@@ -39,8 +41,8 @@ export default function AddActu({modal,SetModal,handleClickButton8}) {
       }
    };
    const input1 = [
-      { id: 1, name: "poste", type: "textarae", placeholder: "Contenu",value: values.poste   ,label: "Contenu de la publication", className: "text-large w-[90%] text-gray-700 border rounded-[10px] border-gray-300 py-2 px-4 h-[100%] focus:outline-none focus:border-blue-500",
-         error:  values.poste === ""? 'Veuillez signifier le contenu du post' : null
+      { id: 1, name: "poste", type: "textarae", placeholder: "Contenu",value: values.poste   ,label: "Contenu de la publication", className: "text-large w-[90%] text-gray-700 border rounded-[10px] border-gray-300 py-2 px-4 h-[100%] hover:border-green-500 focus:outline-none focus:border-green-500",
+         error:  values.poste === ""? 'Veuillez signifier le contenu de cette publication' : null
       }
    ]
 
@@ -184,6 +186,11 @@ export default function AddActu({modal,SetModal,handleClickButton8}) {
 
       //
    }
+   setTimeout(()=>{
+      // SetAlldisplay(false)
+      SetLoading (true)
+   },80)
+
 
    const addData = async () => {
       try {
@@ -222,112 +229,136 @@ export default function AddActu({modal,SetModal,handleClickButton8}) {
    return(
       <>
 
-         <div className="fixed top-0 left-0 z-50 bg-black/70 w-screen h-screen overflow-y-auto">
-            <div className="w-full relative flex justify-center mt-12  h-[70%] ">
-               <div className={`flex-row relative w-[65%]  rounded-xl shadow-xl bg-gray-200 border border-blue-500 p-2 `}>
-                  <div className="flex justify-evenly mt-6 w-[90%] h-[75%] mx-auto  items-center">
+         <div  className={`fixed top-0 left-0 z-30 bg-black/70 w-screen h-screen overflow-y-auto transition duration-300 ease-in-out`}
+         >
+            <div className="w-full relative flex justify-center mt-24 md:mt-12  h-[65%] ">
 
-                     <div className="relative w-[35%] h-[90%]  mt-9  ">
-                        <div className="flex-col  items-center justify-center relative w-[100%] h-[100%]  ">
-                           <label
-                              htmlFor="imageInput"
-                              className="relative w-[100%] h-[90%] bg-transparent border border-sky-600 flex items-center justify-center cursor-pointer group"
+               <div
+                   className={` relative  flex justify-evenly h-[100%] w-[98%] md:w-[60%] bg-white border border-black/70  shadow   ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
 
-                           >
-                              <input
-                                 type="file"
-                                 id="imageInput"
-                                 name="file"
-                                 accept=".jpg, .jpeg, .png ,video/*"
-                                 className="sr-only"
-                                 onChange={handleFileChange}
+                  <div className={`flex justify-between relative w-[100%]    `}>
+                     <img
+                         src={logo.src}
+                         alt={`Logo `}
+                         width="190"
+                         height="190"
+                         className="  relative  h-[100%] w-[3%] rounded "
+                     />
 
-                              />
-                              <div className={selectedFile ? "hidden" :"relative h-[100%] inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"}>
-                                 <Image
-                                    src={picture.src}
-                                    alt={`Logo `}
-                                    width="600"
-                                    height="600"
-                                    className="object-contain object-center w-8 h-8 text-gray-600  "
-                                 />
-                                 <div className="text-gray-400 text-center opacity-100 z-10"> Importer le media </div>
-                              </div>
-                              {selectedFile  && (
-                                 selectedFile2 === "video/mp4"  ?
-                                    <video
-                                       src={URL.createObjectURL(selectedFile)}
-                                       controls
-                                       onMouseEnter={(event) => { event.target.play(); }}
-                                       onMouseLeave={(event) => { event.target.pause(); }}
-                                       alt="Vidéo sélectionnée"
-                                       className="relative h-[100%]  w-[100%]   z-40"
-                                    ></video>  :
-                                    <img
-                                       src={URL.createObjectURL(selectedFile)}
-                                       alt="Image sélectionnée"
-                                       className="relative h-[100%]  w-[100%]  z-40"
+
+                     <div className="flex flex-col  w-[97%] h-[100%] mx-auto  ">
+                        <div className=" relative h-[60%] md:h-[85%]  mt-2 W-[90%] p-1  flex justify-between  ">
+                           <div className="relative w-[35%]   h-[95%]  mt-9  ">
+                              <div className="flex-col  items-center justify-center relative w-[100%] h-[100%]  ">
+                                 <label
+                                     htmlFor="imageInput"
+                                     className="relative w-[100%] h-[90%] border border-black/40 hover:border-green-600 rounded-full flex items-center justify-center cursor-pointer group"
+
+                                 >
+                                    <input
+                                        type="file"
+                                        id="imageInput"
+                                        name="file"
+                                        accept=".jpg, .jpeg, .png ,video/*"
+                                        className="sr-only"
+                                        onChange={handleFileChange}
+
                                     />
-                              )}
-                           </label>
-                           { isSubmit && !values.media ? (
-                              <div className="text-[70%] text-red-600 text-center">Veuillez sélectionner un fichier pour ce poste</div>
-                           ) : null}
-                        </div>
+                                    <div
+                                        className={selectedFile ? "hidden" : "relative h-[100%] inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"}>
+                                       <Image
+                                           src={picture.src}
+                                           alt={`Logo `}
+                                           width="600"
+                                           height="600"
+                                           className="object-contain object-center w-8 h-8 text-gray-600  "
+                                       />
+                                       <div className="text-gray-400 text-center opacity-100 z-10"> Importer le media
+                                       </div>
+                                    </div>
+                                    {selectedFile && (
+                                        selectedFile2 === "video/mp4" ?
+                                            <video
+                                                src={URL.createObjectURL(selectedFile)}
+                                                controls
+                                                onMouseEnter={(event) => {
+                                                   event.target.play();
+                                                }}
+                                                onMouseLeave={(event) => {
+                                                   event.target.pause();
+                                                }}
+                                                alt="Vidéo sélectionnée"
+                                                className="relative h-[100%]  w-[100%]   z-40"
+                                            ></video> :
+                                            <img
+                                                src={URL.createObjectURL(selectedFile)}
+                                                alt="Image sélectionnée"
+                                                className="relative h-[100%]  w-[100%]  z-40"
+                                            />
+                                    )}
+                                 </label>
+                                 {isSubmit && !values.media ? (
+                                     <div className="text-[70%] text-red-600 text-center">Veuillez sélectionner un
+                                        fichier
+                                        pour cette publication </div>
+                                 ) : null}
+                              </div>
 
-                     </div>
-                     <div className="flex items-center justify-center w-[70%]  h-[100%] mx-auto    ">
-                        <div className="w-[100%]  h-[85%] ">
-                           {input1.map((item) => (
-                              <div key={item.id} className="items-center w-full relative h-[90%]    ">
-                                 <div className="rounded-md h-[100%] w-[100%] mx-auto relative left-2  "
-                                      key={item.id}>
-                                    <label
-                                       className="text-[14px] font-semibold h-1 text-black ">{item.label}</label>
-                                    <div className="relative w-[100%] h-[100%] pt-2 ">
+                           </div>
+                           <div className="flex items-center justify-center w-[70%]  h-[100%] mx-auto    ">
+                              <div className="w-[100%]  h-[85%] ">
+                                 {input1.map((item) => (
+                                     <div key={item.id} className="items-center w-full relative h-[90%]    ">
+                                        <div className="rounded-md h-[100%] w-[100%] mx-auto relative left-2  "
+                                             key={item.id}>
+                                           <label
+                                               className="text-[14px] font-semibold h-1 text-black ">{item.label}</label>
+                                           <div className="relative w-[100%] h-[100%] pt-2 ">
                                              <textarea
-                                                placeholder={item.placeholder}
-                                                name={item.name}
-                                                className={item.className}
-                                                rows="8"
-                                                cols="50"
-                                                value={values.poste}
-                                                onChange={(e) => handleChange(e)}
+                                                 placeholder={item.placeholder}
+                                                 name={item.name}
+                                                 className={item.className}
+                                                 rows="8"
+                                                 cols="50"
+                                                 value={values.poste}
+                                                 onChange={(e) => handleChange(e)}
                                              />
 
-                                    </div>
-                                    <div>
-                                       {/*{ Errors[inputs.name]  ? (<> <div className="text-[75%] text-red-600"> {inputs.error} </div> </> ): null  }*/}
-                                       {isSubmit && item.error ? (
-                                          <div className="text-[70%] text-red-600">{item.error}</div>
-                                       ) : null}
-                                    </div>
+                                           </div>
+                                           <div>
+                                              {/*{ Errors[inputs.name]  ? (<> <div className="text-[75%] text-red-600"> {inputs.error} </div> </> ): null  }*/}
+                                              {isSubmit && item.error ? (
+                                                  <div className="text-[70%] text-red-600">{item.error}</div>
+                                              ) : null}
+                                           </div>
 
-                                 </div>
+                                        </div>
+                                     </div>
+                                 ))}
                               </div>
-                           ))}
+                           </div>
+
                         </div>
+                        <div className=" flex justify-center items-center gap-2 md:gap-8 mt-6  h-[15%] w-[100%] ">
+                           <button
+                               className="w-[35%]  md:w-[20%] h-[70%] lg:w-fit bg-green-600 hover:bg-green-800 text-white text-center transition duration-300 transform hover:scale-105 px-5 md:px-10 py-1 rounded-md font-normal"
+                               onClick={handleSummit}>Publier
+                           </button>
+                           <button
+                               className=" w-[35%] md:w-[20%] h-[70%] lg:w-fit bg-red-500 hover:bg-red-800 text-white transition duration-300 transform hover:scale-105 px-10 py-2 rounded-md font-normal"
+                               onClick={comeBack}>Annuler
+                           </button>
+                        </div>
+
                      </div>
+
                   </div>
-                  <div className=" flex justify-center items-center gap-8 mt-6  h-[15%] w-[100%] ">
-                     <button
-                        className="w-[20%] h-[70%] lg:w-fit bg-blue-500 hover:bg-blue-800 text-white text-center transition duration-300 transform hover:scale-105 px-5 md:px-10 py-1 rounded-md font-normal"
-                        onClick={handleSummit}>Publier
-                     </button>
-                     <button
-                        className="w-[20%] h-[70%] lg:w-fit bg-red-500 hover:bg-red-800 text-white transition duration-300 transform hover:scale-105 px-10 py-2 rounded-md font-normal"
-                        onClick={comeBack}>Annuler
-                     </button>
-                  </div>
+
                </div>
 
 
             </div>
          </div>
-
-
-
-
 
 
       </>

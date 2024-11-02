@@ -6,7 +6,8 @@ import close from '@/public/icons/multiply.png'
 import axios from "axios";
 import logo from "@/public/113.png";
 
-export default function AddReservation({NumReservation ,SetReservation,handleClickButton8}){
+
+export default function AddReservationForFormation({NumFormation ,SetFormationReservation,handleClickButton8}){
    const apiUrl = process.env.NEXT_PUBLIC_API_URL ;
    const [Errors,SetErrors] = useState({})
    const [isSubmit,SetIsSubmit] = useState(false)
@@ -24,7 +25,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
       ville:"",
       email:"",
       media:"",
-      nomEvents:NumReservation,
+      nomEvents:NumFormation,
       pays:"",
       genre:"",
       proffession : "",
@@ -116,42 +117,6 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
 
 
 
-   ];
-   const input2 = [
-      {
-         id: 1,
-         name: "adresse",
-         type: "text",
-         placeholder: "adresse",
-         value: values.adresse,
-         label: "Votre adresse",
-         className:
-             "text-[9px] md:text-[15px] relative h-[75%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-sky-500 ",
-         error: values.adresse === "" ? 'Veuillez indiquer le nom de votre école' : null
-      }
-      ,
-      {
-         id: 2,
-         name: "ville",
-         type: "text",
-         placeholder: "ville ",
-         value: values.ville,
-         label: "Votre ville de residence",
-         className:
-            "text-[9px] md:text-[15px] relative w-[94%] h-[88%] py-2 px-4 text-black border rounded-[10px] border-black/40 bg-transparent py-2 px-4 h-8 focus:outline-none focus:border-green-600",
-         error: values.ville === "" ? 'Veuillez indiquer votre prénom' : null
-      } ,
-      {
-         id: 3,
-         name: "email",
-         type: "text",
-         placeholder: "mail",
-         value: values.email,
-         label: "Votre adresse Mail",
-         className:
-            "text-[9px] md:text-[15px] relative w-[94%] h-[88%] py-2 px-4 text-black border rounded-[10px] border-black/40 bg-transparent py-2 px-4 h-8 focus:outline-none focus:border-green-600",
-         error: values.email === "" ? 'Veuillez indiquer votre prénom' : null
-      }
    ];
    const input3 = [
 
@@ -384,12 +349,12 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
             formData.append('ville', values.ville);
             formData.append('email', values.email);
             formData.append('photo', values.media);
-            formData.append('id_evenement', values.nomEvents);
+            formData.append('id_formation', values.nomEvents);
             formData.append('pays', values.pays);
             formData.append('genre', values.genre);
             formData.append('profession', values.proffession);
             formData.append('fonction', values.fonction);
-            const response = await axios.post(`${apiUrl}/Concerned/add_interesse.php`, formData, {
+            const response = await axios.post(`${apiUrl}/Concerned/add_interesseFormation.php`, formData, {
                headers: {
                   'Content-Type': 'multipart/form-data',
                },
@@ -397,60 +362,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
             setFinish(true)
             console.log("Truc ajouté avec succès ", response);
             handleClickButton8()
-            SetReservation(false)
-
-            setValues({
-               nom: "",
-               prenom:"",
-               phone:"",
-               adresse : "",
-               ville:"",
-               email:"",
-               media:"",
-               nomEvents:"",
-               pays:"",
-               genre:"",
-               proffession : "",
-               fonction:""
-
-            });
-         }
-         // Reset form fields after successful submission
-
-      } catch (error) {
-         console.error(error);
-      }
-   };
-
-   const addData2 = async () => {
-
-      try {
-         // Vérifiez que tous les champs requis sont remplis
-         if (values.nom && values.adresse && values.phone && values.media) {
-            const formData = new FormData();
-            formData.append('nom', values.nom);
-            formData.append('prenom', values.prenom);
-            formData.append('contact', values.phone);
-            formData.append('adresse', values.adresse);
-            formData.append('ville', values.ville);
-            formData.append('email', values.email);
-            formData.append('photo', values.media);
-            formData.append('id_evenement', values.nomEvents);
-
-
-            formData.append('pays', values.pays);
-            formData.append('genre', values.genre);
-            formData.append('profession', values.proffession);
-            formData.append('fonction', values.fonction);
-
-
-            const response = await axios.post(`${apiUrl}/Concerned/add_interesse.php`, formData, {
-               headers: {
-                  'Content-Type': 'multipart/form-data',
-               },
-            });
-            setFinish(true)
-            console.log("Truc ajouté avec succès ", response);
+            SetFormationReservation(false)
 
             setValues({
                nom: "",
@@ -503,7 +415,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
    },80)
 
    useEffect(() => {
-      console.log(NumReservation)
+      console.log(NumFormation)
    }, []);
 
    return(
@@ -516,9 +428,9 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
             className={`fixed top-0 left-0 z-30 bg-black/70 w-screen h-screen overflow-y-auto transition duration-300 ease-in-out`}
 
          >
-            <div className="w-full h-[83%]  flex justify-center my-12 md:my-96 lg:my-10">
+            <div className="w-full h-[83%]  flex justify-center my-8 md:my-96 lg:my-10">
                <div
-                  className={` relative  flex justify-evenly h-[100%] md:h-[100%] w-[98%] md:w-[80%] bg-white border border-black/70  shadow   ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
+                  className={` relative  flex justify-evenly h-[100%] w-[98%] md:w-[80%] bg-white border border-black/70  shadow   ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
 
                   <div
                      className=" absolute -right-2 top-2 h-[4%] md:h-[11%] w-[8%] md:w-[6%] items-center justify-center ">
@@ -527,14 +439,14 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                         alt="Image sélectionnée"
                         className="relative h-[60%] cursor-pointer mx-auto w-[60%] z-40"
                         onClick={() => {
-                           SetReservation(false)
+                           SetFormationReservation(false)
                         }}
                      />
                   </div>
 
 
                   <div
-                      className="flex  m-1  justify-between  md:top-0   rounded-md   mx-auto w-[100%] md:w-[100%] h-[99%]    ">
+                      className="flex  m-1  justify-between  md:top-0   rounded-md   mx-auto w-[80%] md:w-[100%] h-[99%]    ">
 
 
                         <img
@@ -595,13 +507,13 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                      {/*debut du formulaire*/}
 
                      <div
-                         className="md:w-[62%] h-[100%] p-1 md:p-4 flex justify-between    items-center   ">
+                         className="md:w-[62%] h-[100%] p-4 flex justify-between    items-center   ">
 
                         <div
-                            className=" w-[63%]  md:w-[55%]  h-[80%]   md:h-[100%] flex-row  space-y-20    ">
+                            className=" w-[50%] md:w-[55%]    h-[100%] flex-row  space-y-20    ">
 
                            <div
-                               className=" w-[100%] -mx-10 md:mx-0 md:w-[100%] h-[40%]  flex items-center justify-center  ">
+                               className=" w-[50%] md:w-[100%] h-[40%]  flex items-center justify-center  ">
                               <div className="flex-col  items-center justify-center relative w-[105%] h-[110%]  ">
                                  <label
                                      htmlFor="imageInput"
@@ -647,10 +559,10 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                            </div>
 
                            <div
-                               className="relative  -top-14 md:top-3 w-[100%] md:w-[100%]     h-[45%] flex-row items-center justify-center -space-y-6 md:-space-y-11 ">
+                               className="relative   top-3 w-[50%] md:w-[100%]     h-[45%] flex-row items-center justify-center  -space-y-11 ">
                               {input3.map((item) => (
                                   <div key={item.id}
-                                       className="items-center relative h-[50%] lg:h-[50%] w-[100%]  ">
+                                       className="items-center relative h-[40%] lg:h-[50%] w-[100%]  ">
 
                                      {item.type === 'select' ? (
 
@@ -720,25 +632,16 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                         </div>
 
 
-
-
-
-
-
-
-
-
-
                         <div
-                            className="relative -top-40 md:top-3 w-[56%]  h-[35%] md:w-[55%]   md:h-[100%] flex-row items-center justify-center -space-y-4 md:-space-y-12 ">
+                            className="relative top-3 w-[50%] md:w-[55%]   h-[100%] flex-row items-center justify-center  -space-y-12 ">
 
 
                            {input1.map((item) => (
-                               <div key={item.id} className="items-center relative h-[50%] lg:h-[23%] w-[100%]  ">
+                               <div key={item.id} className="items-center relative h-[40%] lg:h-[23%] w-[100%]  ">
                                   {
-                                     <div className="rounded-md  mx-auto relative h-[90%] md:h-[90%] w-[100%]" key={item.id}>
+                                     <div className="rounded-md  mx-auto relative h-[90%] w-[100%]" key={item.id}>
 
-                                        <div className=" relative h-[60%] md:h-[60%] w-[100%]   ">
+                                        <div className=" relative h-[60%] w-[100%]   ">
                                            <input
                                                // placeholder={item.placeholder}
                                                name={item.name}
@@ -755,7 +658,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
                                            <label
                                                className={(Focus || values.nom || values.prenom || values.phone || values.adresse || values.ville || values.email || values.media || values.pays || values.genre || values.proffession || values.fonction) ?
 
-                                                   "absolute left-1   top-7 text-[9px] md:text-[13px]   font-extralight  h-[30%] w-[100%] md:w-[90%] text-green-800 -translate-y-12 duration-300" : "absolute tracking-wide  pointer-events-none duration-300 -left-3 md:left-0 top-3    px-6   text-[9px] md:text-[14px]     h-[30%] w-[120%] md:w-[100%] text-black "}>
+                                                   "absolute left-1   top-7 text-[9px] md:text-[13px]   font-extralight  h-[30%] w-[90%] text-green-800 -translate-y-12 duration-300" : "absolute tracking-wide  pointer-events-none duration-300 left-0 top-3    px-6   text-[9px] md:text-[14px]     h-[30%] w-[100%] text-black "}>
 
                                               {item.label}
                                            </label>
@@ -777,7 +680,7 @@ export default function AddReservation({NumReservation ,SetReservation,handleCli
 
 
                      <div
-                         className="absolute block md:hidden w-[100%] h-[20%] md:h-[30%] text-sm items-center left-10 -top-10 flex md:justify-evenly ">
+                         className="relative block md:hidden w-[100%] h-[20%] md:h-[30%] text-sm items-center left-10 -top-10 flex md:justify-evenly ">
                         <button
                             className="relative  md:w-[90%] lg:w-[80%] h-[40%] md:h-[60%] lg:h-[30%] bg-sky-700 hover:bg-green-800 text-white text-center transition duration-300 transform hover:scale-105 px-4 py-2 rounded-md font-normal"
                             onClick={handleSummit}>

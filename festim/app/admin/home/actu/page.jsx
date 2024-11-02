@@ -12,6 +12,8 @@ import house from "@/public/icons/home_127px.png";
 import present from "@/public/icons/layout_127px.png";
 import concept from "@/public/icons/term_127px.png";
 import off from "@/public/icons/shutdown_127px.png";
+import plannig from "@/public/icons/plannig.ico";
+
 export default function page(){
    const apiUrl = process.env.NEXT_PUBLIC_API_URL ;
    const [etat , SetEtat ] = useState(1)
@@ -114,11 +116,14 @@ export default function page(){
                   className=" relative w-[90%] mx-auto  md:w-[100%] lg:w-[80%] flex flex-col font-normal md:font-bold md:mx-1  ">
                   <div className="hidden md:block">
                      <ul
-                        className="   lg:px-1 m-8 md:m-3 lg:m-8 flex justify-between items-center text-blue-900 flex-row gap-6 md:gap-6 lg:gap-6 ">
+                         className="   lg:px-1 m-8 md:m-3 lg:m-8 flex justify-between items-center text-blue-900 flex-row gap-6 md:gap-6 lg:gap-6 ">
                         <li className="hover:text-blue-500 "><Link href="#">Actualites</Link></li>
                         <li className="hover:text-blue-500 " id="barAnime"><Link href="/admin/home/"> Evénement </Link>
                         </li>
-                        <li className="hover:text-blue-500 " id="barAnime"><Link href="/admin/home/reservations"> Réservations</Link></li>
+                        <li className="hover:text-blue-500 " id="barAnime"><Link
+                            href="/admin/home/reservations"> Réservations</Link></li>
+                        <li className="hover:text-blue-500 " id="barAnime"><Link
+                            href="/admin/home/formation"> Formation</Link></li>
 
 
                         <li className="hover:text-blue-500 "><Link href="/admin">Deconnexion</Link></li>
@@ -126,48 +131,58 @@ export default function page(){
                      </ul>
                   </div>
                   <div
-                     className=" md:hidden   relative h-24 w-[100%] mx-auto  flex justify-between items-center text-blue-900 flex-row gap-6">
+                      className=" md:hidden   relative h-24 w-[100%] mx-auto  flex justify-between items-center text-blue-900 flex-row gap-6">
                      <img
-                        src={present.src}
-                        alt={`Logo `}
-                        width="28"
-                        height="28"
-                        className=" object-center   "
-                        onClick={() => {
-                           router.push(`#`);
-                        }}
+                         src={present.src}
+                         alt={`Logo `}
+                         width="28"
+                         height="28"
+                         className=" object-center   "
+                         onClick={() => {
+                            router.push(`#`);
+                         }}
                      />
                      <img
-                        src={house.src}
-                        alt={`Logo `}
-                        width="28"
-                        height="28"
-                        className=" object-center   "
-                        onClick={() => {
-                           router.push(`/admin/home/`);
-                        }}
+                         src={house.src}
+                         alt={`Logo `}
+                         width="28"
+                         height="28"
+                         className=" object-center   "
+                         onClick={() => {
+                            router.push(`/admin/home/`);
+                         }}
                      />
                      <img
-                        src={concept.src}
-                        alt={`Logo `}
-                        width="28"
-                        height="28"
-                        className=" object-center   "
-                        onClick={() => {
-                           router.push(`/admin/home/reservations`);
-                        }}
+                         src={concept.src}
+                         alt={`Logo `}
+                         width="28"
+                         height="28"
+                         className=" object-center   "
+                         onClick={() => {
+                            router.push(`/admin/home/reservations`);
+                         }}
                      />
 
+                     <img
+                         src={plannig.src}
+                         alt={`Logo `}
+                         width="28"
+                         height="28"
+                         className=" object-center   "
+                         onClick={() => {
+                            router.push(`/admin/home/formation`);
+                         }}
+                     />
 
                      <img
-                        src={off.src}
-                        alt={`Logo `}
-                        width="28"
-                        height="28"
-                        className=" object-center   "
-                        onClick={() => {
-                           router.push(`/admin`);
-                        }}
+                         src={off.src}
+                         alt={`Logo `}
+                         width="28"
+                         height="28"
+                         className=" object-center   "
+                         onClick={() => {
+                            router.push(`/admin`);
+                         }}
                      />
 
                   </div>
@@ -179,10 +194,10 @@ export default function page(){
 
 
             <div
-               className='relative w-[90%] h-[15%]  mx-auto  '>
+                className='relative w-[90%] h-[15%]  mx-auto  '>
                <div className=" relative  justify-center w-[80%] items-start p-2    h-[80%]">
                   <button
-                     className="block w-[98%] md:w-[20%] h-10 lg:w-fit bg-blue-500 hover:bg-green-800 text-white transition duration-300 transform hover:scale-105 px-10 py-2 rounded-md font-normal"
+                      className="block w-[98%] md:w-[20%] h-10 lg:w-fit bg-blue-500 hover:bg-green-800 text-white transition duration-300 transform hover:scale-105 px-10 py-2 rounded-md font-normal"
                      onClick={() => {
                         SetEvent(true)
                      }}>Nouvelle Publication

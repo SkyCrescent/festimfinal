@@ -24,7 +24,7 @@ export default function Notifications({SetNotifications,valueNotification}){
             className={` absolute bottom-6 right-8 z-50  w-80 h-20  transition duration-300 ease-in-out`}
          >
             <div
-               className={` relative  flex items-center justify-center h-[100%] w-[100%] bg-white rounded-md border border-green-200 shadow p-1 ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
+               className={` relative  flex items-center justify-center h-[100%] w-[100%] bg-white rounded-md border border-green-200 shadow-green-800 p-1 ${loading ? 'scale-x-100 scale-y-100 opacity-100' : 'scale-x-0 scale-y-0 opacity-0'}  transition duration-500    `}>
 
                <div
                   className="flex flex-col items-center justify-center  relative h-[100%] w-[100%]">

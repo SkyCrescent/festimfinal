@@ -90,9 +90,9 @@ export default function page() {
 
             {/*<div className="fixed w-[700px] h-[700px] 2xl:w-[900px] 2xl:h-[900px] bg-white rounded-full -left-[110px] -top-[118px] 2xl:-left-[170px] 2xl:-top-[170px]"></div>*/}
 
-            <div className="absolute top-20 mx-4   md:w-[98%]  flex flex-col items-center justify-center lg:flex-row z-10 justify-between gap-1">
+            <div className="absolute top-20 mx-3 md:mx-4  w-[95%]  md:w-[98%]  flex flex-col items-center justify-center lg:flex-row z-10  gap-1">
                <div className="lg:h-[70vh]  flex flex-col gap-4  lg:w-[45%] py-3  mx-auto">
-                  <div className="relative -mx-12 h-[75%] w-[100%] ">
+                  <div className="relative mx-auto md:-mx-12 h-[75%] w-[100%] ">
                      <img
                         className="object-contain"
                         src="/AFFICHE FESTTM AFRIQUE 2024copie2.png"
@@ -101,14 +101,14 @@ export default function page() {
                      />
                   </div>
                   <div className='relative text-black text-center font-bold text-4xl w-[100%] md:w-[100%] lg:w-[80%]  '>
-                     Bienvenu sur &nbsp;
+                     Bienvenu au &nbsp;
                      <span className="text-green-500">FESTIVAL D'IMAGES D' </span>
                      <span className="text-black">Afrique</span>
                   </div>
 
                </div>
 
-               <div  className="bg-white w-full flex-1 h-full max-w-2xl rounded-xl shadow-lg py-16 mt-12 ">
+               <div  className="bg-white w-full flex-1 h-full max-w-2xl rounded-xl shadow-lg py-16 mt-12  ">
                   {/*onSubmit={handleSubmit}*/}
                   <div className="flex flex-col lg:flex-row items-center relative h-full">
                      <div className="relative w-[100%]  h-[100%] px-4 md:px-8 lg:px-12  " >

@@ -2,7 +2,6 @@
 import Image from "next/image";
 import logo from "@/public/AFFICHE FESTTM AFRIQUE 2024copie2.png";
 import Link from "next/link";
-import arrow from "@/public/arrow.png";
 import '@/styles/animation.css'
 import React, {useEffect, useState} from "react";
 import g from '../../../public/FB_IMG_1703860165945.jpg'
@@ -22,18 +21,27 @@ import youtube from "@/public/play_button_127px.png";
 import logo2 from "@/public/AFFICHE FESTTM AFRIQUE 2024copie23.png";
 import GASSACKYS from "@/public/SEM FERREOL GASSACKYS.png"
 import AddReservation from "@/components/AddReservation";
+import AddReservationForFormation from "@/components/AddReservationForFormation";
 import discours from '@/public/icons/discourse_127px.png'
 import Notifications from "@/components/Notifications";
 export default function page(){
    const apiUrl = process.env.NEXT_PUBLIC_API_URL ;
    const [number , SetNumber] = useState(0)
+   const [number3 , SetNumber3] = useState(0)
+
    const [loading , SetLoading ] = useState(false)
    const [loading2 , SetLoading2 ] = useState(false)
    const [filteredData, setFilteredData] = useState([]); // Initialize with all dat
+   const [filteredData2, setFilteredData2] = useState([]); // Initialize with all dat
+
    const router = useRouter();
    const [ formattedDate2 ,SetformattedDate] = useState('')
    const [ Reservation, SetReservation ] = useState(false)
    const [NumReservation ,SetnumReservation] = useState(0)
+
+   const [ FormationReservation, SetFormationReservation ] = useState(false)
+   const [NumFormation ,SetnumFormation] = useState(0)
+
    const item = [
       {
          "id": 1,
@@ -128,6 +136,21 @@ export default function page(){
 
 
 
+   const [scrollIndex3, setScrollIndex3] = useState(0);
+   const itemWidth3 = 21; // Adjust this value based on your item width and gap
+
+   useEffect(() => {
+      const interval3 = setInterval(() => {
+         setScrollIndex3((prevIndex) => (prevIndex + 1) % filteredData2.length);
+      }, 3000); // Change the delay to suit your needs
+      // ca fait bouger les element avec un distance de 21 et une intervalle de 3000 donc 3 secondes
+      //le styles fait bouge les image via animate scrool
+      return () => clearInterval(interval3);
+   }, [filteredData2.length]);
+
+
+
+
    const getData = async () => {
       try {
          // Remplacez l'URL par la bonne URL de votre API
@@ -154,6 +177,24 @@ export default function page(){
       }
    };
 
+   const getData3 = async () => {
+      try {
+         // Remplacez l'URL par la bonne URL de votre API
+         const response = await axios.get(`${apiUrl}/formation/get_allFormation.php`);
+         // console.log(response.data && response.data.recu && response.data.recu.length > 0)
+         if (response.data && response.data.recu && response.data.recu.length > 0) {
+            // Vérifiez que la réponse contient les données attendues
+            console.log("la jointure",response.data.recu)
+            setFilteredData2(response.data.recu)
+            SetNumber3(response.data.recu.length)
+            SetLoading(true)
+         } else {
+            console.log("La réponse de l'API est incorrecte ou ne contient pas de données.",response);
+         }
+      } catch (error) {
+         console.error("Une erreur s'est produite lors de la récupération des données de l'API : ", error);
+      }
+   };
 
    useEffect(() => {
 
@@ -181,7 +222,8 @@ console.log(data)
       };
 
       getData()
-
+      getData2()
+      getData3()
 
       //  console.log("ddd",MyId)
    }, []);
@@ -216,6 +258,15 @@ console.log(data)
 
 SetnumReservation(nom)
       SetReservation(true)
+   }
+
+
+   const GotoAdd2 = async (nom) =>{
+      // const encryptedData3 = btoa(id);
+      // router.push(`/presentation/concerned?bal=${encodeURIComponent(encryptedData3)}`);
+
+      SetnumFormation(nom)
+      SetFormationReservation(true)
    }
 
    const getDate = () => {
@@ -347,29 +398,29 @@ SetnumReservation(nom)
             {/*<div className="relative w-full h-[54%] md:h-[55%] lg:h-[84%]   ">*/}
             {/* */}
             <div
-               className="relative    h-auto w-[100%] md:w-[95%] mx-auto   ">
+                className="relative    h-auto w-[100%] md:w-[95%] mx-auto   ">
 
                <div
-                  className="relative w-[90%] md:w-[80%] h-auto mx-auto  space-y-1 items-center justify-center">
+                   className="relative w-[90%] md:w-[80%] h-auto mx-auto  space-y-1 items-center justify-center">
                   <div
-                     className="relative  w-[100%] md:w-[90%] lg:w-[60%] text-center h-12 md:h-12 lg:h-8 mx-auto bg-red-800 md:font-black text-white  flex items-center justify-center mt-9">
+                      className="relative  w-[100%] md:w-[90%] lg:w-[60%] text-center h-12 md:h-12 lg:h-8 mx-auto bg-red-800 md:font-black text-white  flex items-center justify-center mt-9">
                      PRESENTATION DE FESTIM AFRIQUE POOL MALEBO
                   </div>
                   <div
-                     className="relative w-[100%] md:w-[90%] lg:w-[50%] h-12 md:h-8 mx-auto bg-red-800 md:font-black text-white  flex items-center justify-center">
+                      className="relative w-[100%] md:w-[90%] lg:w-[50%] h-12 md:h-8 mx-auto bg-red-800 md:font-black text-white  flex items-center justify-center">
                      (BRAZZAVILLE - KINSHASA EDITION 2024)
                   </div>
 
 
                   <div
-                     className=" text-xs md:text-lg lg:text-xs md:pt-2 lg:mt-0 leading-tight text-center font-[Poppins] relative w-auto mx-auto">Du
-                     lundi 05 au Jeudi 08 Aout 2024 à Brazzaville en République du Congo
+                      className=" text-xs md:text-lg lg:text-xs md:pt-2 lg:mt-0 leading-tight text-center font-[Poppins] relative w-auto mx-auto">Du
+                     Mercredi 06 au Samedi 09 Novembre 2024 à Brazzaville en République du Congo
                   </div>
 
                   <div
-                     className=" text-xs md:text-lg lg:text-xs  leading-tight text-center font-[Poppins] relative w-auto  mx-auto">
-                     Au
-                     Samedi 10 au Diamanche 11 Aout 2024 à Kinshasa en République Démocratique du Congo
+                      className=" text-xs md:text-lg lg:text-xs  leading-tight text-center font-[Poppins] relative w-auto  mx-auto">
+                     Du
+                     Mardi 12 au Mercredi 13 Novembre 2024 à Kinshasa en République Démocratique du Congo
                   </div>
                </div>
 
@@ -377,23 +428,23 @@ SetnumReservation(nom)
 
 
                <div
-                  className="relative -top-6 w-[95%] md:w-[90%] lg:w-[60%] h-56 md:h-[65%] lg:h-80 mx-auto md:-mx-1 lg:mx-auto  mt-10 flex justify-center md:justify-center ">
+                   className="relative -top-6 w-[95%] md:w-[90%] lg:w-[60%] h-56 md:h-[65%] lg:h-80 mx-auto md:-mx-1 lg:mx-auto  mt-10 flex justify-center md:justify-center ">
 
 
                   <div className="w-[30%] h-[100%] md:h-[99%]  ">
                      <div className=" w-[80%] md:w-[100%]  h-[50%]  md:h-[70%] ">
                         <img
-                           className=" object-center mx-3 md:mx-9 "
-                           src={z.src}
-                           height={190}
-                           width={210}
-                           alt="Nfc"
+                            className=" object-center mx-3 md:mx-9 "
+                            src={z.src}
+                            height={190}
+                            width={210}
+                            alt="Nfc"
                         />
                      </div>
                      <div
-                        className="w-[100%] text-xs md:text-sm h-[50%] md:h-[48%] lg:mx-8  lg:h-[20%] md:space-y-4 lg:space-y-3 flex flex-col">
+                         className="w-[100%] text-xs md:text-sm h-[50%] md:h-[48%] lg:mx-8  lg:h-[20%] md:space-y-4 lg:space-y-3 flex flex-col">
                         <div
-                           className="w-[100%]  md:w-[150%]  lg:w-[200%] lg:-mx-24   text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[50%]  ">
+                            className="w-[100%]  md:w-[150%]  lg:w-[200%] lg:-mx-24   text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[50%]  ">
                            Madame la Ministre Jacqueline Lydia MIKOLO
                         </div>
 
@@ -411,22 +462,22 @@ SetnumReservation(nom)
 
 
                <div
-                  className="relative -top-0 w-[95%] md:w-[90%] lg:w-[90%] h-56 md:h-[65%] lg:h-[50%] mx-auto md:-mx-1 lg:mx-auto  mt-10 flex justify-between md:justify-between ">
+                   className="relative -top-0 w-[95%] md:w-[90%] lg:w-[90%] h-56 md:h-[65%] lg:h-[50%] mx-auto md:-mx-1 lg:mx-auto  mt-10 flex justify-between md:justify-between ">
 
 
                   <div className="w-[30%] h-[100%] md:h-[99%]  ">
                      <div className=" w-[80%] md:w-[100%]  h-[50%]  md:h-[70%] ">
                         <img
-                           className=" object-center mx-3 md:mx-9 -skew-x-12"
-                           src={g.src}
-                           height={190}
-                           width={210}
-                           alt="Nfc"
+                            className=" object-center mx-3 md:mx-9 -skew-x-12"
+                            src={g.src}
+                            height={190}
+                            width={210}
+                            alt="Nfc"
                         />
                      </div>
                      <div className="w-[100%] text-xs md:text-sm h-[50%] md:h-[48%] lg:-mx-6  lg:h-[20%] md:space-y-1">
                         <div
-                           className="w-[100%] text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[30%] ">
+                            className="w-[100%] text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[30%] ">
                            Monsieur Serge PEREIRA
                         </div>
                         <div className="w-[100%] italic text-center h-[70%] ">
@@ -439,22 +490,22 @@ SetnumReservation(nom)
                   <div className="w-[30%] h-[100%] md:h-[99%] ">
                      <div className=" w-[90%] md:w-[100%]  h-[50%]  md:h-[70%]">
                         <img
-                           className=" object-center -my-0.5 md:mx-9 skew-x-6"
-                           src={a.src}
-                           height={240}
-                           width={240}
-                           alt="Nfc"
+                            className=" object-center -my-0.5 md:mx-9 skew-x-6"
+                            src={a.src}
+                            height={240}
+                            width={240}
+                            alt="Nfc"
                         />
                      </div>
                      <div
-                        className="w-[100%] text-xs md:text-sm h-[51%]  md:h-[48%] md:mx-8 lg:mx-0 lg:h-[20%] md:space-y-1">
+                         className="w-[100%] text-xs md:text-sm h-[51%]  md:h-[48%] md:mx-8 lg:mx-0 lg:h-[20%] md:space-y-1">
                         <div
-                           className="w-[100%] text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[30%] ">
+                            className="w-[100%] text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[30%] ">
                            Monsieur Rudy Stephen
                         </div>
                         <div className="w-[100%] italic text-center h-[70%] ">
                            Directeur Generale des PME,1er Vice Président du Comite de Pilotage de <span
-                           className="font-bold">FESTIM AFRIQUE</span>
+                            className="font-bold">FESTIM AFRIQUE</span>
                         </div>
                      </div>
                   </div>
@@ -463,17 +514,17 @@ SetnumReservation(nom)
                   <div className="w-[30%] h-[100%] md:h-[99%] ">
                      <div className="w-[90%] md:w-[100%]  h-[50%]  md:h-[70%] ">
                         <img
-                           className=" object-center md:mx-14 lg:mx-20 -skew-x-12"
-                           src={d.src}
-                           height={120}
-                           width={235}
-                           alt="Nfc"
+                            className=" object-center md:mx-14 lg:mx-20 -skew-x-12"
+                            src={d.src}
+                            height={120}
+                            width={235}
+                            alt="Nfc"
                         />
                      </div>
                      <div
-                        className="w-[100%] text-xs md:text-sm h-[51%] md:h-[48%] lg:mx-6 lg:h-[20%] md:space-y-1 lg:space-y-0">
+                         className="w-[100%] text-xs md:text-sm h-[51%] md:h-[48%] lg:mx-6 lg:h-[20%] md:space-y-1 lg:space-y-0">
                         <div
-                           className="w-[100%] md:w-[136%] lg:w-[100%] text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[30%]  ">
+                            className="w-[100%] md:w-[136%] lg:w-[100%] text-center font-bold text-xs md:text-2xl lg:text-lg items center h-[30%]  ">
                            Monsieur Claudio Benedict SAMA KENEGUI
                         </div>
                         <div className="w-[100%] mt-6 md:mt-0 md:mx-8 lg:mx-0   italic text-center h-[70%] ">
@@ -484,10 +535,10 @@ SetnumReservation(nom)
 
                   <div className="hidden md:block w-[30%] h-[50%] md:h-[99%] -mx-12 md:mx-0 -mt-2 lg:-mt-6  ">
                      <img
-                        className=" absolute h-[60%] lg:h-[122%] "
-                        src={GASSACKYS.src}
+                         className=" absolute h-[60%] lg:h-[122%] "
+                         src={GASSACKYS.src}
 
-                        alt="Nfc"
+                         alt="Nfc"
                      />
                   </div>
 
@@ -498,17 +549,17 @@ SetnumReservation(nom)
 
                <div className="block md:hidden w-[30%] h-[5%] md:h-[99%] mx-20 md:mx-0 -mt-6 lg:-mt-6  ">
                   <img
-                     className=" absolute h-[3%] lg:h-[12%] "
-                     src={GASSACKYS.src}
+                      className=" absolute h-[3%] lg:h-[12%] "
+                      src={GASSACKYS.src}
 
-                     alt="Nfc"
+                      alt="Nfc"
                   />
                </div>
 
 
                <div className=" mt-64 md:mt-0  relative h-auto">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] opacity-100 h-8 md:h-12 lg:h-8 w-[70%] md:w-[60%] lg:w-[35%] mx-2 rounded-tr-full justify-center">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] opacity-100 h-8 md:h-12 lg:h-8 w-[70%] md:w-[60%] lg:w-[35%] mx-2 rounded-tr-full justify-center">
 
                      <h1 id="presentation"
                          className="text-sm md:text-lg lg:text-sm py-2 px-2  text-white bg-clip-text  font-semibold my-9 leading-4 uppercase">
@@ -517,14 +568,14 @@ SetnumReservation(nom)
 
                   <br></br>
                   <div
-                     className="relative w-[98%] text-sm  leading-tight  text-justify font-[Poppins]  mx-auto h-[9%] lg:flex lg:justify-between  lg:flex-row lg:gap-2">
+                      className="relative w-[98%] text-sm  leading-tight  text-justify font-[Poppins]  mx-auto h-[9%] lg:flex lg:justify-between  lg:flex-row lg:gap-2">
                      <div className=" relative w-[95%] mx-auto md:w-[100%] lg:w-[50%]  h-[100%] ">
                         <div className="relative h-[50%] w-[100%] flex justify-between items-center gap-1 md:gap-2">
                            <span
-                              className="relative h-[100%] w-[3%] md:w-[5%] text-6xl md:text-6xl font-black font-[Times] "> L</span>
+                               className="relative h-[100%] w-[3%] md:w-[5%] text-6xl md:text-6xl font-black font-[Times] "> L</span>
                            <span className="relative h-[100%] w-[88%] md:w-[95%] "> ’inscription d'un événement qui vise à promouvoir le tourisme culturel et entrepreneurial
                         Africain à travers la diplomatie, comme le festival d’images d’Afrique <span
-                                 className="text-green-600 ">(FESTIM AFRIQUE)</span>, dans
+                                  className="text-green-600 ">(FESTIM AFRIQUE)</span>, dans
                         un cadre continental et international représente une clé de son succès.</span>
                         </div>
                         <br></br>
@@ -538,21 +589,21 @@ SetnumReservation(nom)
                         des espaces pour les conférences d’investissement , la disponibilité des espaces de négociation et de
                         conclusion des accords et contrats commerciaux , l’augmentation des ventes dans, pendant et après
                               l’événement etc.Une opportunité de grande taille est d’inscrire <span
-                           className="text-green-600 ">FESTIM AFRIQUE</span>, dans le cadre de
+                            className="text-green-600 ">FESTIM AFRIQUE</span>, dans le cadre de
                         l’intégration économique de la République du Congo <span
-                           className="text-green-600 ">(Brazzaville)</span> et de la République Démocratique
+                            className="text-green-600 ">(Brazzaville)</span> et de la République Démocratique
                         du Congo <span className="text-green-600 ">(Kinshasa)</span> dans la Zone de Libre-échange Continentale Africaine <span
-                           className="text-green-600 ">(ZLECAF)</span> en sigle. La
+                            className="text-green-600 ">(ZLECAF)</span> en sigle. La
                         ZLECAF est une zone de libre-échange créée sur le continent africain qui regroupe un marché
                         commun de l’Afrique orientale et australe, de la Communauté Economique et Monétaire de l’Afrique
                         Centrale <span className="text-green-600 ">(C.E.M.A.C)</span>, de la Communauté Est Africaine et de la Communauté de développement de
                         l’Afrique australe <span className="text-green-600 ">(COMESA-EAC-SADC)</span> comme Zone de Libre-échange Tripartite <span
-                           className="text-green-600 ">(ZLET)</span> en sigle
+                            className="text-green-600 ">(ZLET)</span> en sigle
                         et la Communauté économique des États de l’Afrique Centrale <span
-                           className="text-green-600 ">(CEEAC)</span>, la Communauté des États de
+                            className="text-green-600 ">(CEEAC)</span>, la Communauté des États de
                         l’Afrique de l’Ouest <span
-                           className="text-green-600 ">(CEDEAO)</span>, l’Union du Maghreb Arabe <span
-                           className="text-green-600 ">(UMA)</span> sans oublier la Communauté des
+                            className="text-green-600 ">(CEDEAO)</span>, l’Union du Maghreb Arabe <span
+                            className="text-green-600 ">(UMA)</span> sans oublier la Communauté des
                         États sahélo-sahariens <span className="text-green-600 ">(CEN-SAD)</span>.</span>
 
 
@@ -573,7 +624,7 @@ SetnumReservation(nom)
 
 
                         FESTIM AFRIQUE est créé et enregistrée en République du Congo, au récépissé <span
-                           className="text-green-600 ">N°0398/22/MIDDL/
+                            className="text-green-600 ">N°0398/22/MIDDL/
                         DBZ/SG/DDAT/SR</span>, est un instrument de la diplomatie culturelle et entrepreneurial Africain, mise en
                         place pour accélérer le développement des acteurs de plusieurs secteurs de la vie socioéconomique, il
                         va contribuer à intégrer la diplomatie culturelle et entrepreneurial dans les politiques et programmes
@@ -587,14 +638,14 @@ SetnumReservation(nom)
 
                   </div>
                   <div
-                     className="relative  w-[95%] mx-auto md:w-[100%]  text-sm   leading-tight  text-justify font-[Poppins]  mx-auto">
+                      className="relative  w-[95%] mx-auto md:w-[100%]  text-sm   leading-tight  text-justify font-[Poppins]  mx-auto">
                      D’autres raisons militent en faveur de la tenue de deux phases de la première Edition de FESTIM
                      AFRIQUE dans les deux Congo :
                      <br></br> <br></br>
 
                      <ul className="relative h-[20%]  w-[95%] md:w-[98%] lg:w-[100%] mx-2   list-disc list-inside  ">
                         <li
-                           className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                            <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Le souhait de suscitez
                            des vocations inspirantes jusqu’à
                            son amplification internationale
@@ -603,14 +654,14 @@ SetnumReservation(nom)
                         </li>
 
                         <li
-                           className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                            <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Exposition des nouvelles
                            réalités naturelles et
                            culturelles des Communautés africaines jusqu’à présent méconnues ;
                         </li>
 
                         <li
-                           className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                            <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Donner aux jeunes une
                            vraie place de développer l’esprit
                            de l’entreprise centrer sur l’impact
@@ -619,7 +670,7 @@ SetnumReservation(nom)
                            programmes par les pays africains pour leur intégration dans la ZLECAF ;
                         </li>
                         <li
-                           className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                            <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>L’existence de nouveaux
                            produits et de la technologie
                            inconnus sans oublier la nécessité
@@ -627,7 +678,7 @@ SetnumReservation(nom)
                            public pour leur promotion à moindre coût ;
                         </li>
                         <li
-                           className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                            <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Une grande opportunité de
                            la ZLET et ses CER partenaires
                            de découvrir le Congo
@@ -646,7 +697,7 @@ SetnumReservation(nom)
                <br></br>
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] md:h-[80%] lg:h-[50%] mx-4 w-[80%] md:w-[80%] lg:w-[20%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] md:h-[80%] lg:h-[50%] mx-4 w-[80%] md:w-[80%] lg:w-[20%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -654,21 +705,21 @@ SetnumReservation(nom)
                   </div>
                   <ul className="relative h-[20%]  w-[90%] md:w-[97%]  lg:w-[80%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Conférence Internationale
                         sur l'importance de la Diplomatie d'Affaires et L'Entreprenariat
                         des Jeunes.
                      </li>
 
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Congrès International de
                         Remise des Trophées
                         (FESTIM AFRIQUE AWARD édition 2023-2024).
                      </li>
 
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Animations Culturelle et
                         Expositions ventes au village continental.
                      </li>
@@ -679,7 +730,7 @@ SetnumReservation(nom)
                <br></br>
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4  w-[80%]  md:h-[80%] lg:w-[25%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4  w-[80%]  md:h-[80%] lg:w-[25%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -687,35 +738,34 @@ SetnumReservation(nom)
                   </div>
                   <ul className="relative h-[20%] w-[60%] md:w-[30%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Gouvernements;
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[60%] md:w-[30%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Missions Diplomatiques;
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[60%] md:w-[30%] mx-8   list-disc list-inside  ">
+
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Institution Internationales;
-                     </li>
-                     <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Entreprises;
                      </li>
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Societe Civile.
                      </li>
+
+
                   </ul>
                </div>
                <br></br>
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4 w-[90%]  md:h-[80%] lg:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4 w-[90%]  md:h-[80%] lg:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -723,12 +773,12 @@ SetnumReservation(nom)
                   </div>
                   <div className="relative h-[20%] w-[88%] mx-8    ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         {/*<span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>*/}
 
                         FESTIM Afrique 2024 a pour
-                        mission de promouvoir la
-                        diplomatie sous toute ses formes,le monde des affaires et de l'entreprenariat des jeunes .
+                        mission de promouvoir les Metiers de la
+                        Diplomatie,le Monde des Affaires et de l'Entreprenariat des Jeunes en Afrique .
                      </li>
                   </div>
                </div>
@@ -736,75 +786,76 @@ SetnumReservation(nom)
                <br></br>
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4 w-[95%]  md:h-[80%] lg:w-[58%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4 w-[95%]  md:h-[80%] lg:w-[58%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-tight uppercase">
                         objectifs principal de l'initiative festim afrique pool malebo edition 2024 </h1>
                   </div>
                   <span
-                     className="text-xs md:text-sm relative  h-[52%] mx-8  w-[90%]  leading-tight text-left font-medium flex items-center font-[Poppins]">Reunir les acteur de la diplomatie, les chefs d'entreprise, les philanthropes,les champions de
-                    la conservation et de la protection de l'environement ,ainsi que les stars du Sport et de la musique  ,mais auss de la mode de Brazzaville et de Kinshasa pour  </span>
+                      className="text-xs md:text-sm relative  h-[52%] mx-8  w-[90%]  leading-tight text-left font-medium flex items-center font-[Poppins]">Reunir les leaders et Acteurs de la diplomatie, les Chefs dEntreprises, les Philanthropes,les champions de
+                    la conservation et de la protection de l'environnement ,ainsi que les stars du Sport et de la musique  ,mais aussi de la mode à Brazzaville et à Kinshasa pour : </span>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Echanger .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Informer .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Former.
                      </li>
                   </ul>
-                  <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
-                     <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Partager des compétences.
-                     </li>
-                  </ul>
+
                   <ul className="relative h-[20%] w-[80%] md:w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Dévelloper les reseaux de
                         partenaires .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Encourager la créativite .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Partager des compétences.
+                     </li>
+                  </ul>
+                  <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Favoriser l'entreprenariat
                         des jeunes .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Coopérer en affaires .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%] md:w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Encourager de nouvel
                         investissement.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-12   list-disc list-inside ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Elargir les champs d'action
                         .
                      </li>
@@ -815,24 +866,33 @@ SetnumReservation(nom)
                <br></br>
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4  w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4  w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
                         Theme </h1>
                   </div>
                   <div className="relative h-[20%] w-[80%] md:w-[50%] mx-8   list-disc list-inside ">
-                     <div
-                        className=" text-lg font-extrabold md:text-lg italic  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        " L'Afrique que nous voulons."
-                     </div>
+                     {/*<div*/}
+                     {/*    className=" text-lg font-extrabold md:text-lg italic  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">*/}
+                     {/*   " L'Afrique que nous voulons."*/}
+                     {/*</div>*/}
+
+                     <ul className="relative h-[20%] w-[80%] mx-12   list-disc list-inside ">
+                        <li
+                            className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                           <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>L'Afrique que nous
+                           voulons.
+                        </li>
+                     </ul>
+
                   </div>
                </div>
 
                <br></br>
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4 w-[60%] md:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative  h-[50%] mx-4 w-[60%] md:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -840,37 +900,67 @@ SetnumReservation(nom)
                   </div>
                   <ul className="relative h-[20%] w-[80%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Offrir ou recevoir des
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Promouvoir les
                         compétences .
                      </li>
                   </ul>
-                  <ul className="relative h-[20%] w-[80%] md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
-                     {/* md:h-[80%] lg:*/}
+
+                  <ul className="relative h-[20%] w-[80%] md:w-[80%] lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Financer la création
+                        de nouvelles entreprises des Lauréats du Concours édition 2024
+                     </li>
+                  </ul>
+
+
+                  <ul className="relative h-[20%] w-[90%] md:w-[90%] lg:w-[100%] mx-8   list-disc list-inside  ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Former les Etudiants à
+                        l'unniversité
+                        SUN MOON de Corée du Sud pour l'opérationalisation de l'initiave 'DE L'ETUDIANT A CHEF
+                        D'ENTREPRISE' Promotion
+                        DENIS SASSOU N'GUESSO édition 2024;
+                     </li>
+                  </ul>
+
+
+                  <ul className="relative h-[20%] w-[80%] md:w-[80%] lg:w-[80%] mx-8   list-disc list-inside  ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Faire participer les
+                        Etudiants et Entrepreneurs au
+                        Forum de l'Entrepreneuriat à Lyon en France en novembre 2024 ;
+                     </li>
+                  </ul>
+
+                  <ul className="relative h-[20%] w-[80%] md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Mieux connaitre et
                         comprendre les affaires et
-                        son environnement.
+                        son Environnement.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%] md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Dévelloper les capacités
                         d'adaptation .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%]  md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Anticiper un changement de
                         situation en affaires.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[90%]  md:w-[90%]  lg:w-[70%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Vendre et promouvoir des
                         solutions et solutions aupres des
                         nouveaux clients et partenaires.
@@ -878,31 +968,43 @@ SetnumReservation(nom)
                   </ul>
                   <ul className="relative h-[20%] w-[75%]  md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Batir une équipe diversifieé
-                        tres efficace et entreprenante .
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Batir un réseau diversifieé
+                        des Jeunes très Efficaces et Entreprenants .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[90%]  md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Encourager le partage des
                         connaissances ,proumouvoir le réseautage .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%]  md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Inspirer et creer de
                         nouveaux entrepreneurs.
                      </li>
                   </ul>
+
+
+                  <ul className="relative h-[20%] w-[80%]  md:w-[80%]  lg:w-[50%] mx-8   list-disc list-inside  ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Mise en place du Club des
+                        Relations Internationales pour les
+                        Affaires en Afrique
+                     </li>
+                  </ul>
+
+
                </div>
                <br></br>
 
                <div className="relative  h-auto       ">
                   <div
-                     className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4 w-[60%] md:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4 w-[60%] md:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -912,31 +1014,32 @@ SetnumReservation(nom)
 
                   <ul className="relative h-[20%] w-[90%]  md:w-[90%]  lg:w-[80%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Diner de travail des
-                        partenaires traditionnels sur la presentation des scénario
-                        et des activites de l'edition 2024.
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Lancement officiel du
+                        Festival et soirée de Gala
+                        de levée des fonds;
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[83%] md:w-[90%]  lg:w-[70%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Visite de travail à Malabo
-                        ,Addis Abeba,Berlin,Londre
-                        ,Rome,Washington,Bruxelle.
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Visite de travail et
+                        participation aux
+                        Conférences et formations à Paris,Berlin
+                        ,Rome.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[90%] md:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Publication de l'évenement .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%] md:w-[90%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
-                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Lancement international de
-                        la campagne de Communication .
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Amplification de la campage
+                        de Communication .
                      </li>
                   </ul>
 
@@ -946,7 +1049,7 @@ SetnumReservation(nom)
 
                <div className="relative  h-auto       ">
                   <div
-                     className="bg-red-900 relative  bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4 w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative  bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4 w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -954,14 +1057,14 @@ SetnumReservation(nom)
                   </div>
                   <ul className="relative h-[20%] w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Discours.
                      </li>
                   </ul>
 
                   <ul className="relative h-[20%] w-[80%] md:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Panel des Experts et
                         Conferences débats
                         .
@@ -969,29 +1072,71 @@ SetnumReservation(nom)
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Ateliers de formation.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[88%] md:w-[90%]  lg:w-[55%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Carnaval,Exposition,Animation,Culturels
                         et Dégustation Gastronomiques inter-états .
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Exposition pays et ventes .
                      </li>
                   </ul>
 
                </div>
                <br></br>
+
+
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 relative  bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4  w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')]  h-[50%] mx-4  w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
+
+                     <h1 id="presentation"
+                         className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
+                        BUDGET DES ACTIVITES DE BRAZZAVILLE </h1>
+                  </div>
+                  <ul className="relative h-[20%] w-[80%] md:w-[80%] mx-8   list-disc list-inside  ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>
+                        142 470 540 FCFA.
+                     </li>
+                  </ul>
+
+               </div>
+
+
+               <br></br>
+               <div className="relative  h-auto        ">
+                  <div
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')]  h-[50%] mx-4  w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
+
+                     <h1 id="presentation"
+                         className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
+                        BUDGET DES ACTIVITES DE KINSHASA </h1>
+                  </div>
+                  <ul className="relative h-[20%] w-[80%] md:w-[80%] mx-8   list-disc list-inside   ">
+                     <li
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2  font-medium flex items-center font-[Poppins] ">
+                        <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>
+                        189 293.82 $
+                     </li>
+                  </ul>
+
+               </div>
+
+
+               <br></br>
+               <div className="relative  h-auto        ">
+                  <div
+                      className="bg-red-900 relative  bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4  w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -1000,21 +1145,21 @@ SetnumReservation(nom)
 
                   <ul className="relative h-[20%] w-[80%] md:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les membres des
                         Gouvernement.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%] md:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les Chefs des missions
                         diplomatiques.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%] md:w-[90%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les representants des
                         institutions
                         internationales.
@@ -1022,13 +1167,13 @@ SetnumReservation(nom)
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les Chefs d'entreprises.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>La Sociéte Civile .
                      </li>
                   </ul>
@@ -1037,7 +1182,7 @@ SetnumReservation(nom)
 
                <div className="relative  h-auto        ">
                   <div
-                     className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')]  h-[50%] mx-4  w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')]  h-[50%] mx-4  w-[80%] md:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -1045,14 +1190,14 @@ SetnumReservation(nom)
                   </div>
                   <ul className="relative h-[20%] w-[80%] md:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les Officiels et
                         Entrepreneurs.
                      </li>
                   </ul>
                   <ul className="relative h-[20%] w-[80%] md:w-[90%]  lg:w-[50%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Etudiants Universitaire et
                         finaliste des Ecoles Proffessionnels .
                      </li>
@@ -1065,7 +1210,7 @@ SetnumReservation(nom)
 
                <div className="relative  mx-auto w-[98%] h-auto space-y-6">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-8 w-[55%] md:w-[35%] mx-2 rounded-tr-full justify-center">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-8 w-[55%] md:w-[35%] mx-2 rounded-tr-full justify-center">
 
                      <h1 id="presentation"
                          className="text-sm py-2 px-2  text-white bg-clip-text  font-semibold my-9 leading-4 uppercase">
@@ -1074,7 +1219,7 @@ SetnumReservation(nom)
 
 
                   <div
-                     className="relative w-[100%] text-sm  leading-tight mt-2 text-justify font-[Poppins]  mx-auto h-auto lg:flex lg:justify-between lg:items-center p-2 lg:flex-row">
+                      className="relative w-[100%] text-sm  leading-tight mt-2 text-justify font-[Poppins]  mx-auto h-auto lg:flex lg:justify-between lg:items-center p-2 lg:flex-row">
                      <div className=" relative w-[100%] md:w-[100%] lg:w-[50%]  h-[80%] ">
                         <div className="relative h-[50%] w-[100%] flex justify-between items-center gap-2">
                            <span className="relative h-[100%] w-[5%] text-6xl font-black font-[Times] "> L</span>
@@ -1103,11 +1248,11 @@ SetnumReservation(nom)
                opportunité
                de
                grande taille d’inscrire <span
-                           className="font-semibold text-green-600  shadow-black">FESTIM AFRIQUE </span> ,
+                            className="font-semibold text-green-600  shadow-black">FESTIM AFRIQUE </span> ,
                dans le cadre de l’intégration économique de la République
                du Congo (Brazzaville) et de la République Démocratique du Congo (Kinshasa) dans la Zone de
                Libre échange Continentale Africaine ( <span
-                           className="font-semibold text-green-600  shadow-black"> ZLECAF</span> ) en sigle.
+                            className="font-semibold text-green-600  shadow-black"> ZLECAF</span> ) en sigle.
                </span>
 
                      </div>
@@ -1120,27 +1265,27 @@ SetnumReservation(nom)
                libre-échange créée sur le continent africain qui regroupe un marché commun de l’Afrique
                orientale
                et australe, de la Communauté Economique et Monétaire de l’Afrique Centrale (<span
-                        className="font-semibold text-green-600  shadow-blac">C.E.M.A.C</span>), de la
+                         className="font-semibold text-green-600  shadow-blac">C.E.M.A.C</span>), de la
                Communauté Est Africaine et de la Communauté de développement de l’Afrique australe (<span
-                        className="font-semibold text-green-600  shadow-blac">COMESA EAC-SADC</span>) comme Zone de
+                         className="font-semibold text-green-600  shadow-blac">COMESA EAC-SADC</span>) comme Zone de
                Libre-échange Tripartite (<span
-                        className="font-semibold text-green-600  shadow-blac">ZLET</span>)
+                         className="font-semibold text-green-600  shadow-blac">ZLET</span>)
                en sigle et la Communauté économique
                des États de l’Afrique Centrale (<span
-                        className="font-semibold text-green-600  shadow-blac">CEEAC</span>), la Communauté des États
+                         className="font-semibold text-green-600  shadow-blac">CEEAC</span>), la Communauté des États
                de
                l’Afrique de l’Ouest (<span className="font-semibold text-green-600  shadow-blac"></span>CEDEAO),
                l’Union du Maghreb Arabe (UMA) sans oublier la Communauté des États sahélo-sahariens (<span
-                        className="font-semibold text-green-600  shadow-blac">CENSAD</span>). La ZLECAF possède un
+                         className="font-semibold text-green-600  shadow-blac">CENSAD</span>). La ZLECAF possède un
                patrimoine touristique économique naturel et culturel, ainsi de plusieurs
                secteurs d’activités qui offrent d’excellentes opportunités d’entreprendre pour stimuler le
                développement
                socioéconomique et améliorer les moyens d’existence des pays africains et de lutter contre le
                chômage
                des Jeunes en Afrique. Pour y parvenir, deux défis majeurs sont à souligner et lever : <span
-                        className="font-semibold text-green-600  shadow-blac">(1)</span> la répartition
+                         className="font-semibold text-green-600  shadow-blac">(1)</span> la répartition
                inégale des ressources naturelles et culturelles, <span
-                        className="font-semibold text-green-600  shadow-blac">(2)</span> la non-reconnaissance de
+                         className="font-semibold text-green-600  shadow-blac">(2)</span> la non-reconnaissance de
                l’histoire et du patrimoine
                économique touristique naturel et culturel de nombreuses communautés Africaines.
 
@@ -1150,12 +1295,12 @@ SetnumReservation(nom)
                   </div>
 
                </div>
-               {/*ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd*/}
+
                <br></br>
 
                <div className="relative  mx-auto w-[98%] h-[54%] w-[98%]">
                   <div
-                     className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-12 md:h-10 lg:h-8 w-[90%] md:w-[90%] lg:w-[45%] mx-2 rounded-tr-full justify-center">
+                      className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-12 md:h-10 lg:h-8 w-[90%] md:w-[90%] lg:w-[45%] mx-2 rounded-tr-full justify-center">
 
                      <h1 id="presentation"
                          className="text-sm py-2 px-2  text-white bg-clip-text  font-semibold my-9 leading-4 uppercase">
@@ -1164,11 +1309,11 @@ SetnumReservation(nom)
 
 
                   <div
-                     className="relative w-[100%]  text-sm mt-3 md:mt-12 lg:mt-24  leading-tight  text-justify font-[Poppins]  mx-auto h-auto md:flex md:justify-between md:items-center  md:flex-row">
+                      className="relative w-[100%]  text-sm mt-3 md:mt-12 lg:mt-24  leading-tight  text-justify font-[Poppins]  mx-auto h-auto md:flex md:justify-between md:items-center  md:flex-row">
                      <div className=" relative w-[90%] md:w-[50%]  h-[20%] ">
                         <div className="relative h-[50%]  w-[100%] md:w-[96%] lg:w-[100%] ">
                         <span
-                           className="relative h-[100%] w-[70%] md:w-[10%] lg:w-[70%] text-xl md:text-2xl lg:text-4xl  font-[Times] "> Hôtel
+                            className="relative h-[100%] w-[70%] md:w-[10%] lg:w-[70%] text-xl md:text-2xl lg:text-4xl  font-[Times] "> Hôtel
                         Olympic Palace à Brazzaville et le Musé National de la RDC à Kinshasa.</span>
                            {/*      */}
                            {/*      <span className="relative h-[100%] w-[95%] "> ’inscription d'un événement qui vise à promouvoir le tourisme culturel, le monde des Affaires*/}
@@ -1177,7 +1322,7 @@ SetnumReservation(nom)
                         </div>
                         <br></br>
                         <span
-                           className="relative h-[50%] w-[100%] text-xs md:text-[13px] lg:text-lg py-6 leading-tight mt-2 text-justify font-[Poppins] ">
+                            className="relative h-[50%] w-[100%] text-xs md:text-[13px] lg:text-lg py-6 leading-tight mt-2 text-justify font-[Poppins] ">
                         Sont les sites retenus pour le Le Festival d’Images
                         d’Afrique <br></br>(FESTIM AFRIQUE POOL MALEBO Brazzaville-Kinshasa).<br></br> <br></br>
 
@@ -1188,14 +1333,14 @@ SetnumReservation(nom)
 
                      <div className="relative h-[50%] w-[99%] md:w-[48%] flex items-center justify-center">
                         <div
-                           className="md:absolute -top-40 md:-top-32 left-0 w-full h-auto flex items-center justify-center transition-opacity duration-500"
+                            className="md:absolute -top-40 md:-top-32 left-0 w-full h-auto flex items-center justify-center transition-opacity duration-500"
                         >
                            <img
-                              className="object-cover rounded-xl"
-                              src={ImageSrc.src}
-                              height={800}
-                              width={600}
-                              alt="Nfc"
+                               className="object-cover rounded-xl"
+                               src={ImageSrc.src}
+                               height={800}
+                               width={600}
+                               alt="Nfc"
                            />
                         </div>
                         {/*<div*/}
@@ -1223,11 +1368,11 @@ SetnumReservation(nom)
                <div className="relative  h-auto  ">
                   <div className="relative h-[70%] mx-4 leading-4   ">
                      <div
-                        className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative w-[92%] md:w-[68%] lg:w-[38%] rounded-tr-full justify-center">
+                         className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative w-[92%] md:w-[68%] lg:w-[38%] rounded-tr-full justify-center">
 
                         <h1 id="presentation"
                             className="text-sm py-2 px-2  text-white bg-clip-text  font-semibold my-9 leading-4 uppercase">
-                           Evenements et Actualites de festim afrrique</h1>
+                           Evenements organisées par festim afrrique</h1>
                      </div>
 
 
@@ -1249,31 +1394,31 @@ SetnumReservation(nom)
 
 
                      <div
-                        className="relative w-[90%]  md:w-auto mx-auto  flex flex-row  gap-4 p-4 mb-3 animate-scroll-step "
-                        style={{transform: `translateX(-${scrollIndex * itemWidth}rem)`}}
+                         className="relative w-[90%]  md:w-auto mx-auto  flex flex-row  gap-4 p-4 mb-3 animate-scroll-step "
+                         style={{transform: `translateX(-${scrollIndex * itemWidth}rem)`}}
 
                      >
                         {loading && (
 
-                           <div className="flex flex-row space-x-4">
-                              {filteredData.map((item, index) => (
-                                 <div key={index}
-                                      className="relative w-72 md:w-80 cursor-pointer bg-gray-100 hover:bg-gray-100/85 rounded-xl hover:shadow-2xl transition duration-300"
-                                    // onClick={() => {
-                                    //    GoToUpdate(item.id, item.nom)
-                                    // }}
-                                 >
-                                    <div className="h-64 w-full">
-                                       <img src={`/${item.photo}`} alt={`Media ${item.id}`}
-                                            className="relative h-[99%] w-[100%] rounded-tr-xl "
+                            <div className="flex flex-row space-x-4">
+                               {filteredData.map((item, index) => (
+                                   <div key={index}
+                                        className="relative w-72 md:w-80 cursor-pointer bg-gray-100 hover:bg-gray-100/85 rounded-xl hover:shadow-2xl transition duration-300"
+                                       // onClick={() => {
+                                       //    GoToUpdate(item.id, item.nom)
+                                       // }}
+                                   >
+                                      <div className="h-64 w-full">
+                                         <img src={`/${item.photo}`} alt={`Media ${item.id}`}
+                                              className="relative h-[99%] w-[100%] rounded-tr-xl "
 
-                                       />
-                                    </div>
-                                    <div className="p-2">
-                                       <div className="font-semibold text-xl text-black">{item.nom}</div>
+                                         />
+                                      </div>
+                                      <div className="p-2">
+                                         <div className="font-semibold text-xl text-black">{item.nom}</div>
 
 
-                                       <span>
+                                         <span>
                      {(() => {
                         const format = new Date(formattedDate2);
                         const date1 = new Date(item.date_debut);
@@ -1282,17 +1427,17 @@ SetnumReservation(nom)
                         if (format.getTime() < date1.getTime()) {
                            return (
 
-                              <div>
-                                 <p>Evenement à venir,</p>
-                                 <button
-                                    className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
-                                    onClick={() => {
-                                       GotoAdd(item.nom)
-                                    }}
-                                 >Me
-                                    Reserver une place
-                                 </button>
-                              </div>
+                               <div>
+                                  <p>Evenement à venir,</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd(item.nom)
+                                      }}
+                                  >Me
+                                     Reserver une place
+                                  </button>
+                               </div>
 
 
                            )
@@ -1300,17 +1445,17 @@ SetnumReservation(nom)
                         } else if (format.getTime() === date1.getTime()) {
                            return (
 
-                              <div>
-                                 <p>Evenement en cours,</p>
-                                 <button
-                                    className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
-                                    onClick={() => {
-                                       GotoAdd(item.nom)
-                                    }}
-                                 >Me
-                                    Reserver une place
-                                 </button>
-                              </div>
+                               <div>
+                                  <p>Evenement en cours,</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd(item.nom)
+                                      }}
+                                  >Me
+                                     Reserver une place
+                                  </button>
+                               </div>
 
 
                            )
@@ -1318,34 +1463,34 @@ SetnumReservation(nom)
                         } else if (format.getTime() > date1.getTime() && format.getTime() < date2.getTime()) {
                            return (
 
-                              <div>
-                                 <p>Evenement en cours,</p>
-                                 <button
-                                    className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
-                                    onClick={() => {
-                                       GotoAdd(item.nom)
-                                    }}
-                                 >Me
-                                    Reserver une place
-                                 </button>
-                              </div>
+                               <div>
+                                  <p>Evenement en cours,</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd(item.nom)
+                                      }}
+                                  >Me
+                                     Reserver une place
+                                  </button>
+                               </div>
 
 
                            )
                         } else if (format.getTime() === date2.getTime()) {
                            return (
 
-                              <div>
-                                 <p>Evenement en cours,</p>
-                                 <button
-                                    className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
-                                    onClick={() => {
-                                       GotoAdd(item.nom)
-                                    }}
-                                 >Me
-                                    Reserver une place
-                                 </button>
-                              </div>
+                               <div>
+                                  <p>Evenement en cours,</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd(item.nom)
+                                      }}
+                                  >Me
+                                     Reserver une place
+                                  </button>
+                               </div>
 
 
                            )
@@ -1357,17 +1502,167 @@ SetnumReservation(nom)
 
                      })()}
                   </span>
-                                       <div className="font-normal text-sm">
-                                          <span className="font-[gotham]">{formatDate(item.date_debut)}</span> au <span
-                                          className="font-[gotham]">{formatDate(item.date_fin)}</span>
-                                       </div>
-                                       <div className="font-normal text-sm">Sous le thème de :<span
-                                          className="font-[gotham] text-[#04f32c]">{item.concept_devellope}</span></div>
+                                         <div className="font-normal text-sm">
+                                            <span
+                                                className="font-[gotham]">{formatDate(item.date_debut)}</span> au <span
+                                             className="font-[gotham]">{formatDate(item.date_fin)}</span>
+                                         </div>
+                                         <div className="font-normal text-sm">Sous le thème de :<span
+                                             className="font-[gotham] text-[#04f32c]">{item.concept_devellope}</span>
+                                         </div>
 
-                                    </div>
-                                 </div>
-                              ))}
-                           </div>
+                                      </div>
+                                   </div>
+                               ))}
+                            </div>
+                        )}
+                     </div>
+
+                  </div>
+
+
+               </div>
+               <br></br>
+               {/*dddddddddddddddddddddddd*/}
+
+               <div className="relative  h-auto  ">
+                  <div className="relative h-[70%] mx-4 leading-4   ">
+                     <div
+                         className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative w-[92%] md:w-[68%] lg:w-[38%] rounded-tr-full justify-center">
+
+                        <h1 id="presentation"
+                            className="text-sm py-2 px-2  text-white bg-clip-text  font-semibold my-9 leading-4 uppercase">
+                          Formation organisées par festim afrrique</h1>
+                     </div>
+
+
+                     <div className="  w-auto text-xs lg:text-lg gap-3 md:flex md:items-center md:justify-center">
+                     <span className=" "> Le festival
+                        d’images d’Afrique (<span className=" text-green-600 font-semibold ">FESTIM AFRIQUE</span>) compte a ce jour
+                     </span>
+                        <span className="text-xl md:text-3xl text-red-800 font-semibold"> {number3}</span>
+                        <span className=" "> formation effectuées sous sa tutelle
+                     </span>
+                     </div>
+                  </div>
+                  <div className="relative h-[30%] md:h-[10%] lg:h-[35%] w-auto   overflow-x-hidden">
+
+
+                     <div
+                         className="relative w-[90%]  md:w-auto mx-auto  flex flex-row  gap-4 p-4 mb-3 animate-scroll-step "
+                         style={{transform: `translateX(-${scrollIndex3 * itemWidth3}rem)`}}
+
+                     >
+                        {loading && (
+
+                            <div className="flex flex-row space-x-4">
+                               {filteredData2.map((item, index) => (
+                                   <div key={index}
+                                        className="relative w-72 md:w-80 cursor-pointer bg-gray-100 hover:bg-gray-100/85 rounded-xl hover:shadow-2xl transition duration-300"
+                                   >
+                                      <div className="h-64 w-full">
+                                         <img src={`/${item.media}`} alt={`Media ${item.id}`}
+                                              className="relative h-[100%] w-[100%] rounded-tr-xl "
+
+                                         />
+                                      </div>
+                                      <div className="p-2 ">
+                                         <div className="font-semibold text-xl text-black">{item.nom}</div>
+
+
+                                         <span>
+                     {(() => {
+                        const format = new Date(formattedDate2);
+                        const date1 = new Date(item.date_debut);
+                        const date2 = new Date(item.date_fin);
+
+                        if (format.getTime() < date1.getTime()) {
+                           return (
+
+                               <div>
+                                  <p>Formation à venir</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd2(item.nom)
+                                      }}
+                                  >Participer a la formation
+                                  </button>
+                               </div>
+
+
+                           )
+
+                        } else if (format.getTime() === date1.getTime()) {
+                           return (
+
+                               <div>
+                                  <p>Formation en cours</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd2(item.nom)
+                                      }}
+                                  >Participer a la formation
+                                  </button>
+                               </div>
+
+
+                           )
+
+                        } else if (format.getTime() > date1.getTime() && format.getTime() < date2.getTime()) {
+                           return (
+
+                               <div>
+                                  <p>Formation en cours</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd2(item.nom)
+                                      }}
+                                  >Participer a la formation
+                                  </button>
+                               </div>
+
+
+                           )
+                        } else if (format.getTime() === date2.getTime()) {
+                           return (
+
+                               <div>
+                                  <p>Formation en cours</p>
+                                  <button
+                                      className="bg-black text-white rounded-md p-2 text-xs transition duration-300 transform hover:scale-105"
+                                      onClick={() => {
+                                         GotoAdd2(item.nom)
+                                      }}
+                                  >Participer a la formation
+                                  </button>
+                               </div>
+
+
+                           )
+                        } else if (format.getTime() > date2.getTime()) {
+                           return "Formation deja cloturé";
+                        } else {
+                           return null;
+                        }
+
+                     })()}
+                  </span>
+                                         <div className="font-normal text-sm">
+                                            <span
+                                                className="font-[gotham]">Du {formatDate(item.date_debut)}</span> au <span
+                                             className="font-[gotham]">{formatDate(item.date_fin)}</span>
+                                         </div>
+                                         <div className="font-normal text-sm">Facturé a :<span
+                                             className="font-[gotham] text-[#04f32c]"> {item.Prix_formation} FCFA</span>
+                                         </div>
+
+                                      </div>
+                                   </div>
+                               ))}
+                            </div>
                         )}
                      </div>
 
@@ -1380,7 +1675,7 @@ SetnumReservation(nom)
                <div className="relative  h-auto  ">
                   <div className="relative h-[70%] mx-4 leading-4   ">
                      <div
-                        className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative w-[88%] md:w-[58%] lg:w-[38%] rounded-tr-full justify-center">
+                         className="bg-red-900 bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] relative w-[88%] md:w-[58%] lg:w-[38%] rounded-tr-full justify-center">
 
                         <h1 id="presentation"
                             className="text-sm py-2 px-2  text-white bg-clip-text  font-semibold my-9 leading-4 uppercase">
@@ -1403,31 +1698,31 @@ SetnumReservation(nom)
 
                   <div className="relative h-[15%] md:h-[10%] lg:h-[15%] w-full overflow-x-hidden  ">
                      <div
-                        className="relative w-[90%] md:w-[98%] mx-auto  flex flex-row  gap-4 p-4 mb-3 animate-scroll-step "
-                        style={{transform: `translateX(-${scrollIndex2 * itemWidth2}rem)`}}
+                         className="relative w-[90%] md:w-[98%] mx-auto  flex flex-row  gap-4 p-4 mb-3 animate-scroll-step "
+                         style={{transform: `translateX(-${scrollIndex2 * itemWidth2}rem)`}}
                      >
                         {loading2 && (
-                           <div className="flex flex-row space-x-4">
-                              {item.map((item, index) => (
-                                 <div key={index}
-                                      className="relative w-72 md:w-96  cursor-pointer bg-gray-100 border border-gray-200 hover:bg-gray-100/85 rounded-xl hover:shadow-2xl transition duration-300"
-                                    // onClick={() => {
-                                    //    GoToUpdate(item.id, item.nom)
-                                    // }}
-                                 >
-                                    <div className="h-80 w-full flex items-center  justify-center">
-                                       <img src={`/${item.photo}`} alt={`Media ${item.id}`}
-                                            className="object-center   "
+                            <div className="flex flex-row space-x-4">
+                               {item.map((item, index) => (
+                                   <div key={index}
+                                        className="relative w-72 md:w-96  cursor-pointer bg-gray-100 border border-gray-200 hover:bg-gray-100/85 rounded-xl hover:shadow-2xl transition duration-300"
+                                       // onClick={() => {
+                                       //    GoToUpdate(item.id, item.nom)
+                                       // }}
+                                   >
+                                      <div className="h-80 w-full flex items-center  justify-center">
+                                         <img src={`/${item.photo}`} alt={`Media ${item.id}`}
+                                              className="object-center   "
 
-                                       />
-                                    < /div>
-                                    <div className="p-2 text-center">
-                                       <div className="font-semibold text-xl text-black">{item.nom}</div>
+                                         />
+                                      < /div>
+                                      <div className="p-2 text-center">
+                                         <div className="font-semibold text-xl text-black">{item.nom}</div>
 
-                                    </div>
-                                 </div>
-                              ))}
-                           </div>
+                                      </div>
+                                   </div>
+                               ))}
+                            </div>
                         )}
                      </div>
                   </div>
@@ -1441,7 +1736,7 @@ SetnumReservation(nom)
 
                <div className="relative  h-auto    ">
                   <div
-                     className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4  w-[50%] md:w-[60%] lg:w-[50%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[50%] mx-4  w-[50%] md:w-[60%] lg:w-[50%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -1449,7 +1744,7 @@ SetnumReservation(nom)
                   </div>
                   <ul className="relative h-[20%] w-[89%] md:w-[95%] lg:w-[55%] mx-8   list-disc list-inside  ">
                      <li
-                        className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
+                         className="text-xs md:text-sm  leading-tight mt-2 text-justify gap-2 font-medium flex items-center font-[Poppins] ">
                         <span className="h-1.5 w-1.5 bg-green-600 rounded-full mr-1"></span>Les entrepreneurs ,les
                         Etudiants Universitaires
                         et finaliste des écoles professionelles.
@@ -1462,7 +1757,7 @@ SetnumReservation(nom)
 
 
                   <div
-                     className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[5%] mx-4  w-[90%] md:w-[80%] lg:w-[46%]  rounded-tr-full justify-center  ">
+                      className="bg-red-900 relative bg-no-repeat   bg-cover   bg-[url('../public/111222t.png')] h-[5%] mx-4  w-[90%] md:w-[80%] lg:w-[46%]  rounded-tr-full justify-center  ">
 
                      <h1 id="presentation"
                          className="text-[15px]  px-2 py-2 text-white bg-clip-text  font-semibold my-2 leading-4 uppercase">
@@ -1472,11 +1767,11 @@ SetnumReservation(nom)
 
                   <div className="w-[100%]  h-[100%]">
                      <img
-                        className=" object-cover"
-                        src={e.src}
-                        height={950}
-                        width={950}
-                        alt="Nfc"
+                         className=" object-cover"
+                         src={e.src}
+                         height={950}
+                         width={950}
+                         alt="Nfc"
                      />
                   </div>
                </div>
@@ -1490,11 +1785,11 @@ SetnumReservation(nom)
                {/* Contenu de la bulle */}
                <div className="bg-blue-500 text-white p-2 rounded-full shadow-lg">
                   <img
-                     src={discours.src}
-                     alt={`Logo `}
-                     width="5"
-                     height="8"
-                     className=" object-center  relative w-full h-full  "
+                      src={discours.src}
+                      alt={`Logo `}
+                      width="5"
+                      height="8"
+                      className=" object-center  relative w-full h-full  "
                   />
                </div>
             </div>
@@ -1508,11 +1803,17 @@ SetnumReservation(nom)
 
 
          {
-            Reservation ? (<AddReservation NumReservation={NumReservation} SetReservation={SetReservation} handleClickButton8={handleClickButton8}/>) : null
+            Reservation ? (<AddReservation NumReservation={NumReservation} SetReservation={SetReservation}
+                                           handleClickButton8={handleClickButton8}/>) : null
          }
 
          {
-            ShowNotifications ? (  < Notifications SetNotifications={SetNotifications}  valueNotification={valueNotification} /> ) :null
+            FormationReservation ? ( <AddReservationForFormation  NumFormation={NumFormation} SetFormationReservation={SetFormationReservation} handleClickButton8={handleClickButton8} />) : null
+         }
+
+         {
+            ShowNotifications ? (
+                < Notifications SetNotifications={SetNotifications} valueNotification={valueNotification}/>) : null
          }
 
       </>

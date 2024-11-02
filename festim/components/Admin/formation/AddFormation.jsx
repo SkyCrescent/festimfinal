@@ -5,7 +5,6 @@ import axios from "axios";
 import Image from "next/image";
 import picture from "@/public/picture.png";
 import logo from "@/public/113.png";
-//import  f from  "../../pages/api/tare"
 export default function AddEvent({modal, SetModal}){
    const apiUrl = process.env.NEXT_PUBLIC_API_URL ;
    const [isSubmit,SetIsSubmit] = useState(false)
@@ -19,28 +18,31 @@ export default function AddEvent({modal, SetModal}){
       name: "",
       dateD : "",
       dateF:"",
-      contenu:"",
-     // couleur:"",
-      media :"",
-     // etat:''
-
+      // contenu:"",
+      prix:"",
+      media :null,
+      lieux:''
    });
 
    const input = [
-      { id: 1, name: "name", type: "text", placeholder: "Nom",value: values.name   ,label: "Nom de l'evenement", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
+      { id: 1, name: "name", type: "text", placeholder: "Nom",value: values.name   ,label: "Nom de la formation", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
          img: ``,
-         error:  values.name === ""? 'Veuillez signifier le nom' :null
+         error:  values.name === ""? 'Quel est le nom de cette formation' :null
       },
-      { id: 3, name: "dateD",type: "date",minDate : "2024-02-10",value: values.dateD  ,maxDate : "2028-12-10", placeholder: "Debut de l'evenement", label: "Debut de l'evenement", className:"text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 "
+      { id: 2, name: "dateD",type: "date",minDate :Date.now(),value: values.dateD  ,maxDate : "2028-12-10", placeholder: "Debut de la formation", label: "Debut de l'evenement", className:"text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 "
 ,
-         error: values.dateD ? null : 'Quel jour votre evenement commence?' , img: `` },
+         error: values.dateD ? null : 'Quel jour la formation commence?' , img: `` },
 
-      { id: 4, name: "dateF",type: "date",minDate : "2024-02-10",value: values.dateF  ,maxDate : "2028-12-10", placeholder: "birthday", label: "Fin de l'evenement", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
+      { id: 3, name: "dateF",type: "date",minDate :Date.now() ,value: values.dateF  ,maxDate : "2028-12-10", placeholder: "birthday", label: "Fin de la formation", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
 
-         error: values.dateF ? null : 'Quel jour votre evenelent se termine?' , img: `` },
-      { id: 5, name: "contenu", type: "text", placeholder: "Concept",value: values.contenu ,label: "Concept de l'evenement", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
+         error: values.dateF ? null : 'Quel jour la formation se termine?' , img: `` },
+      { id: 4, name: "prix", type: "text", placeholder: "Prix de la formation",value: values.prix ,label: "Prix de la formation", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
          img: ``,
-         error:  values.contenu ==="" ?'Quel est le concept de cette evenement' :null
+         error:  values.prix ==="" ?'Quel est le prix de cette formation' :null
+      } ,
+      { id: 5, name: "lieux", type: "text", placeholder: "Lieux de la formation",value: values.lieux ,label: "Lieux de la formation", className: "text-[9px] md:text-[15px] relative h-[90%] w-[90%]  text-black border  border-gray-400 bg-transparent py-2 px-4 rounded-[5px] focus:outline-none hover:border-green-600 focus:border-green-600 ",
+         img: ``,
+         error:  values.contenu ==="" ?'Ou se tiendra la formation' :null
       }
    ]
 
@@ -63,10 +65,10 @@ export default function AddEvent({modal, SetModal}){
          name: "",
          dateD : "",
          dateF:"",
-         contenu:"",
-         //couleur:"",
+        // contenu:"",
+         prix:"",
          media :null,
-         //etat:''
+         lieux:''
       });
 
       setSelectedFile(null)
@@ -92,7 +94,7 @@ export default function AddEvent({modal, SetModal}){
                const formData = new FormData();
                formData.append('file', selectedFile1);
                // Envoi de la requête POST avec Axios vers le serveur
-               const response = await axios.post('/../../pages/api/tare/', formData, {
+               const response = await axios.post('/../../pages/api/formation/', formData, {
                   headers: {
                      'Content-Type': 'multipart/form-data'
                   }
@@ -101,7 +103,7 @@ export default function AddEvent({modal, SetModal}){
                // Mise à jour de la valeur media avec le chemin du fichier
                setValues((prevValues) => ({
                   ...prevValues,
-                  media: `media/events/${selectedFile1.name}`,
+                  media: `media/formation/${selectedFile1.name}`,
                }));
                console.log("sdsd",values.media)
             } catch (error) {
@@ -129,7 +131,7 @@ export default function AddEvent({modal, SetModal}){
    const getData = async () => {
       try {
          // Remplacez l'URL par la bonne URL de votre API
-         const response = await axios.get(`${apiUrl}/evenements/get_allEvent.php`);
+         const response = await axios.get(`${apiUrl}/formation/get_allFormation.php`);
          // console.log(response.data && response.data.recu && response.data.recu.length > 0)
          if (response.data && response.data.recu && response.data.recu.length > 0) {
             // Vérifiez que la réponse contient les données attendues
@@ -154,18 +156,19 @@ export default function AddEvent({modal, SetModal}){
    const addData = async () => {
       try {
          // Vérifiez que tous les champs requis sont remplis
-         if (values.name && values.dateD && values.dateF && values.contenu && values.media) {
+         if (values.name && values.dateD && values.dateF && values.prix && values.media && values.lieux) {
             const formData = new FormData();
             formData.append('nom', values.name);
             formData.append('date_debut', values.dateD);
             formData.append('date_fin', values.dateF); // Assurez-vous que le champ fichier a le bon nom
-            formData.append('concept_devellope', values.contenu); // Assurez-vous que le champ fichier a le bon nom
-            //formData.append('couleur', values.couleur); // Assurez-vous que le champ fichier a le bon nom
-            formData.append('photo', values.media); // Assurez-vous que le champ fichier a le bon nom
+            formData.append('prix', values.prix); // Assurez-vous que le champ fichier a le bon nom
+            formData.append('media', values.media); // Assurez-vous que le champ fichier a le bon nom
+            formData.append('Adresse', values.lieux); // Assurez-vous que le champ fichier a le bon nom
+
             //formData.append('etat', values.etat); // Assurez-vous que le champ fichier a le bon nom
 
             // Effectuez la requête HTTP en utilisant Axios
-            const response = await axios.post(`${apiUrl}/evenements/add_Event.php`, formData, {
+            const response = await axios.post(`${apiUrl}/formation/add_Formation.php`, formData, {
                headers: {
                   'Content-Type': 'multipart/form-data',
                },
@@ -186,7 +189,7 @@ export default function AddEvent({modal, SetModal}){
       let cleanedAddress = '';
       // Mise à jour de la valeur dans l'état global values directement
 
-      if (name === 'contenu') {
+      if (name === 'lieux') {
 
          // Supprimer les caractères spéciaux pour l'adresse
          //cleanedAddress = value.replace(/[^a-zA-Z\s]/g, '');
@@ -217,7 +220,7 @@ export default function AddEvent({modal, SetModal}){
                   <div className="flex flex-col mt-4  md:mt-36  lg:mt-0  items-center justify-center  shadow-xl bg-white border border-black/70 mx-auto h-[85%] lg:h-[95%] w-[95%]  md:h-[50%] md:w-[90%]  lg:w-[65%]  ">
                      {/*//le pc c a partir de md par defaut c le phone*/}
                         <div className=" w-[100%] h-[100%] p-2   ">
-                           <div className="text-black text-center  font-[arial] font-semibold text-[20px] uppercase ">Saisissez les Informations du Nouvel Evenements</div>
+                           <div className="text-black text-center  font-[arial] font-semibold text-[20px] uppercase ">Saisissez les Informations au sujet de cette formation</div>
                            <div className="flex justify-between   w-[100%] h-[75%]  ">
 
                               <img
@@ -232,7 +235,7 @@ export default function AddEvent({modal, SetModal}){
                                     <label
                                         htmlFor="imageInput"
                                         className=
-                                            "relative w-[100%] md:w-[30%] lg:w-[80%] h-[98%] md:h-[70%] lg:h-[108%] mx-auto md:mt-8 lg:mt-3 top bg-transparent border border-black/40 hover:border-green-600 rounded-full flex items-center justify-center cursor-pointer group"
+                                            "relative w-[100%] md:w-[30%] lg:w-[80%] h-[98%] md:h-[70%] lg:h-[108%]  mx-auto md:mt-8 lg:mt-3 top bg-transparent border border-black/40 hover:border-green-600 rounded-full flex items-center justify-center cursor-pointer group"
 
                                     >
                                        <input
@@ -278,8 +281,8 @@ export default function AddEvent({modal, SetModal}){
                                        )}
                                     </label>
                                     {isSubmit && !values.media ? (
-                                        <div className="text-[70%] text-red-600 text-center">Veuillez sélectionner un
-                                           fichier pour ce poste</div>
+                                        <div className="text-[70%] text-red-600 text-center">Veuillez sélectionner une
+                                           couverture pour cette formation </div>
                                     ) : null}
                                  </div>
                                  <div
@@ -328,13 +331,13 @@ export default function AddEvent({modal, SetModal}){
 
                            </div>
                            <div
-                               className="relative flex items-center justify-center -top-16 md:top-0 space-x-4 md:space-x-6  w-[100%] h-[20%]   ">
+                               className="relative flex items-center justify-center  -top-14 md:top-8 space-x-4 md:space-x-6  w-[100%] h-[15%]   ">
                               <button
-                                  className="w-[40%] h-[70%] md:w-[20%] lg:w-[20%] lg:h-[50%] bg-green-600 hover:bg-green-700 text-white transition duration-300 transform hover:scale-105   rounded-md font-normal"
+                                  className="w-[40%] h-[70%] md:w-[20%] lg:w-[20%] lg:h-[55%] bg-green-600 hover:bg-green-700 text-white transition duration-300 transform hover:scale-105   rounded-md font-normal"
                                   onClick={handleSummit}>Valider
                               </button>
                               <button
-                                  className="w-[40%] h-[70%] md:w-[20%] lg:w-[20%] lg:h-[50%] bg-red-500 hover:bg-red-800 text-white transition duration-300 transform hover:scale-105  rounded-md font-normal"
+                                  className="w-[40%] h-[70%] md:w-[20%] lg:w-[20%] lg:h-[55%] bg-red-500 hover:bg-red-800 text-white transition duration-300 transform hover:scale-105  rounded-md font-normal"
                                   onClick={comeBack}>Annuler
                               </button>
                            </div>
